@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-02-04T16:32:12.915Z",
+    "end": "2025-02-04T16:32:38.657Z",
+    "duration": 25742,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "84a05ca4-9e7c-46d3-ae91-1b7df93bf6b3",
+      "title": "",
+      "fullFile": "e2e\\firstTest.cy.js",
+      "file": "e2e\\firstTest.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a59c141a-29fc-4473-a7e7-379f087a4f6f",
+          "title": "Mloflo Automation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "logs into mloflo account",
+              "fullTitle": "Mloflo Automation logs into mloflo account",
+              "timedOut": null,
+              "duration": 25694,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"https://uat.mloflo.com/\");\ncy.wait(2000);\ncy.get(\"input[name='email']\").type(\"himanshupant.qa@gmail.com\");\ncy.wait(1000);\ncy.get(\"input[placeholder='Password']\").type(\"Harry@123\");\ncy.wait(1000);\ncy.get(\"#submit\").click();\ncy.wait(1000);\ncy.url().should('include', '/dashboard');\ncy.wait(4000);\ncy.get(':nth-child(9) > a').click();\ncy.wait(2000);\ncy.url().should('include', '/marketing');",
+              "err": {},
+              "uuid": "613d16f9-71c7-4619-987c-c70b1c8b1b9c",
+              "parentUUID": "a59c141a-29fc-4473-a7e7-379f087a4f6f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "613d16f9-71c7-4619-987c-c70b1c8b1b9c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 25694,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

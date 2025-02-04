@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-02-04T06:47:55.321Z",
+    "end": "2025-02-04T06:48:10.759Z",
+    "duration": 15438,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8d163841-6a6f-4c10-b6f5-f3d857a25140",
+      "title": "",
+      "fullFile": "e2e\\firstTest.cy.js",
+      "file": "e2e\\firstTest.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4d114df7-cb7b-46be-b5cf-b9617d9879fb",
+          "title": "Mloflo Automation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "logs into mloflo account",
+              "fullTitle": "Mloflo Automation logs into mloflo account",
+              "timedOut": null,
+              "duration": 15358,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"https://uat.mloflo.com/\");\ncy.wait(2000);\ncy.get(\"input[name='email']\").type(\"himanshupant.qa@gmail.com\");\ncy.wait(1000);\ncy.get(\"input[placeholder='Password']\").type(\"Harry@123\");\ncy.wait(1000);\ncy.get(\"#submit\").click();\ncy.wait(1000);\ncy.url().should('include', '/dashboard');\ncy.wait(4000);\ncy.get(':nth-child(9) > a').click();\ncy.wait(2000);\ncy.url().should('include', '/marketing');",
+              "err": {
+                "message": "CypressError: Timed out after waiting `15000ms` for your remote page to load.\n\nYour page did not fire its `load` event within `15000ms`.\n\nYou can try increasing the `pageLoadTimeout` value in `Users\\pantq\\cypress\\cypress.config.js` to wait longer.\n\nBrowsers will not fire the `load` event until all stylesheets and scripts are done downloading.\n\nWhen this `load` event occurs, Cypress will continue running commands.",
+                "estack": "CypressError: Timed out after waiting `15000ms` for your remote page to load.\n\nYour page did not fire its `load` event within `15000ms`.\n\nYou can try increasing the `pageLoadTimeout` value in `Users\\pantq\\cypress\\cypress.config.js` to wait longer.\n\nBrowsers will not fire the `load` event until all stylesheets and scripts are done downloading.\n\nWhen this `load` event occurs, Cypress will continue running commands.\n    at timedOutWaitingForPageLoad (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:130987:64)\n    at <unknown> (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:131972:16)\n    at tryCatcher (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1807:23)\n    at <unknown> (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:4186:41)\n    at tryCatcher (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1697:18)\n    at _drainQueueStep (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://mloflo-cypress/./e2e/firstTest.cy.js:3:7)",
+                "diff": null
+              },
+              "uuid": "f80369d0-20f4-49fb-ae91-30a6088f99c9",
+              "parentUUID": "4d114df7-cb7b-46be-b5cf-b9617d9879fb",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "f80369d0-20f4-49fb-ae91-30a6088f99c9"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 15358,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
