@@ -32,6 +32,9 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run --browser chrome --reporter mochawesome
 
+      - name: Set Current Date as an Environment Variable
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -60,7 +63,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "✅ Cypress Tests Passed - $(date +'%Y-%m-%d')"
+          subject: "✅ Cypress Tests Passed - ${{ env.DATE }}"
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
           body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nSee the attached report.🎉"
