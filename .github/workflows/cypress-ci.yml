@@ -49,6 +49,14 @@ jobs:
           fi
         shell: bash
 
+      - name: Wait for Report Generation
+        run: sleep 10
+        shell: bash
+
+      - name: Debug Report Existence
+        run: ls -l cypress/reports
+        shell: bash
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
