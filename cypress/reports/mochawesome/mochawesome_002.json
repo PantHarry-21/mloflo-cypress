@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-02-17T20:09:04.422Z",
-    "end": "2025-02-17T20:09:43.037Z",
-    "duration": 38615,
+    "start": "2025-02-18T18:10:26.221Z",
+    "end": "2025-02-18T18:10:48.374Z",
+    "duration": 22153,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "18dc4854-5c2a-497f-ab73-21f3dc14f41a",
+      "uuid": "bd3612a0-3344-4c9c-be04-96c7413adadc",
       "title": "",
       "fullFile": "e2e\\tests\\logout.cy.js",
       "file": "e2e\\tests\\logout.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "15ec5e7d-c899-4865-b529-3817e1f6714d",
+          "uuid": "ca8ffab9-465d-4d97-93e9-704489c6e734",
           "title": "Logout",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "Logout",
               "fullTitle": "Logout Logout",
               "timedOut": null,
-              "duration": 38516,
+              "duration": 22040,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\");\ncy.url().should(\"include\", \"/dashboard\");\ncy.get('div > .dropdown-custom > .dropdown-toggle > .user-profile-box > .d-flex').click();\ncy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(5) > .dropdown-item').click();\ncy.url().should(\"include\", \"/login\");",
               "err": {},
-              "uuid": "56267538-7df3-4e37-9a69-633e7fd7d0ea",
-              "parentUUID": "15ec5e7d-c899-4865-b529-3817e1f6714d",
+              "uuid": "0158c854-2853-422b-83de-3229fba31aa2",
+              "parentUUID": "ca8ffab9-465d-4d97-93e9-704489c6e734",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "56267538-7df3-4e37-9a69-633e7fd7d0ea"
+            "0158c854-2853-422b-83de-3229fba31aa2"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 38516,
+          "duration": 22040,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
