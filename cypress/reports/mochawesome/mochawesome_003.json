@@ -5,9 +5,9 @@
     "passes": 0,
     "pending": 0,
     "failures": 1,
-    "start": "2025-02-04T06:47:55.321Z",
-    "end": "2025-02-04T06:48:10.759Z",
-    "duration": 15438,
+    "start": "2025-02-17T20:09:50.354Z",
+    "end": "2025-02-17T20:10:16.714Z",
+    "duration": 26360,
     "testsRegistered": 1,
     "passPercent": 0,
     "pendingPercent": 0,
@@ -18,41 +18,41 @@
   },
   "results": [
     {
-      "uuid": "8d163841-6a6f-4c10-b6f5-f3d857a25140",
+      "uuid": "c014fb47-c4f9-40b6-89bc-a3c9c5ac0298",
       "title": "",
-      "fullFile": "e2e\\firstTest.cy.js",
-      "file": "e2e\\firstTest.cy.js",
+      "fullFile": "e2e\\tests\\resetPassword.cy.js",
+      "file": "e2e\\tests\\resetPassword.cy.js",
       "beforeHooks": [],
       "afterHooks": [],
       "tests": [],
       "suites": [
         {
-          "uuid": "4d114df7-cb7b-46be-b5cf-b9617d9879fb",
-          "title": "Mloflo Automation",
+          "uuid": "fe0b0701-d09a-4ce1-bb65-8683872c967d",
+          "title": "Reset password",
           "fullFile": "",
           "file": "",
           "beforeHooks": [],
           "afterHooks": [],
           "tests": [
             {
-              "title": "logs into mloflo account",
-              "fullTitle": "Mloflo Automation logs into mloflo account",
+              "title": "Reset password",
+              "fullTitle": "Reset password Reset password",
               "timedOut": null,
-              "duration": 15358,
+              "duration": 26295,
               "state": "failed",
               "speed": null,
               "pass": false,
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.visit(\"https://uat.mloflo.com/\");\ncy.wait(2000);\ncy.get(\"input[name='email']\").type(\"himanshupant.qa@gmail.com\");\ncy.wait(1000);\ncy.get(\"input[placeholder='Password']\").type(\"Harry@123\");\ncy.wait(1000);\ncy.get(\"#submit\").click();\ncy.wait(1000);\ncy.url().should('include', '/dashboard');\ncy.wait(4000);\ncy.get(':nth-child(9) > a').click();\ncy.wait(2000);\ncy.url().should('include', '/marketing');",
+              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@1234\");\ncy.url().should(\"include\", \"/dashboard\");\ncy.get('.page-loader > .dashboard-processor__right > .verticle-middle > .form-row > .col-md-5').click();\ncy.get('div > .dropdown-custom > .dropdown-toggle > .user-profile-box > .d-flex').click();\ncy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(1) > .dropdown-item').click();\ncy.get('.mileStone > .d-flex > .mileStone-tab > .nav-item:nth-child(3) > .nav-link').click();\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(1) > .input-group > .champ-form__cm-input').type('Harry@1234');\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(2) > .input-group > .champ-form__cm-input').type('Harry@123');\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(3) > .input-group > .champ-form__cm-input').type('Harry@123');\ncy.get('.form-row > .form-row > .position-relative > .button > .text__size12').click();\ncy.get('.Snackbar_snackbar__text__1Hx2a').should('contain', 'Password reset successfully');",
               "err": {
-                "message": "CypressError: Timed out after waiting `15000ms` for your remote page to load.\n\nYour page did not fire its `load` event within `15000ms`.\n\nYou can try increasing the `pageLoadTimeout` value in `Users\\pantq\\cypress\\cypress.config.js` to wait longer.\n\nBrowsers will not fire the `load` event until all stylesheets and scripts are done downloading.\n\nWhen this `load` event occurs, Cypress will continue running commands.",
-                "estack": "CypressError: Timed out after waiting `15000ms` for your remote page to load.\n\nYour page did not fire its `load` event within `15000ms`.\n\nYou can try increasing the `pageLoadTimeout` value in `Users\\pantq\\cypress\\cypress.config.js` to wait longer.\n\nBrowsers will not fire the `load` event until all stylesheets and scripts are done downloading.\n\nWhen this `load` event occurs, Cypress will continue running commands.\n    at timedOutWaitingForPageLoad (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:130987:64)\n    at <unknown> (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:131972:16)\n    at tryCatcher (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1807:23)\n    at <unknown> (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:4186:41)\n    at tryCatcher (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:1697:18)\n    at _drainQueueStep (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (https://uat.mloflo.com/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://mloflo-cypress/./e2e/firstTest.cy.js:3:7)",
+                "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://uat.mloflo.com/login' to include '/dashboard'",
+                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://uat.mloflo.com/login' to include '/dashboard'\n    at Context.eval (webpack://mloflo-cypress/./e2e/tests/resetPassword.cy.js:16:13)",
                 "diff": null
               },
-              "uuid": "f80369d0-20f4-49fb-ae91-30a6088f99c9",
-              "parentUUID": "4d114df7-cb7b-46be-b5cf-b9617d9879fb",
+              "uuid": "ed6c9677-2859-4407-a198-5a8acae82f87",
+              "parentUUID": "fe0b0701-d09a-4ce1-bb65-8683872c967d",
               "isHook": false,
               "skipped": false
             }
@@ -60,11 +60,11 @@
           "suites": [],
           "passes": [],
           "failures": [
-            "f80369d0-20f4-49fb-ae91-30a6088f99c9"
+            "ed6c9677-2859-4407-a198-5a8acae82f87"
           ],
           "pending": [],
           "skipped": [],
-          "duration": 15358,
+          "duration": 26295,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
