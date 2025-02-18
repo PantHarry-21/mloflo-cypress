@@ -12,7 +12,7 @@ describe("Reset password", () => {
     });
 it('Reset password',  () => {
     
-    cy.login("himanshupant.qa@gmail.com", "Harry@1234");
+    cy.login("himanshupant.qa@gmail.com", "Harry@123");
     cy.url().should("include", "/dashboard");
     cy.get('.page-loader > .dashboard-processor__right > .verticle-middle > .form-row > .col-md-5').click()
     cy.get('div > .dropdown-custom > .dropdown-toggle > .user-profile-box > .d-flex').click()
