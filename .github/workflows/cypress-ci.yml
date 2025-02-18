@@ -23,8 +23,7 @@ jobs:
           node-version: 22.13.1
 
       - name: Install dependencies
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Verify Cypress binary
         run: npx cypress verify
@@ -35,6 +34,20 @@ jobs:
       - name: Set Current Date as an Environment Variable
         run: echo "DATE=$(Get-Date -Format 'yyyy-MM-dd')" | Out-File -FilePath $env:GITHUB_ENV -Append
         shell: powershell
+
+      - name: Ensure Report Directory Exists
+        run: mkdir -p cypress/reports
+        shell: bash
+
+      - name: Generate Cypress Report
+        run: |
+          if [ -f cypress/reports/mochawesome.json ]; then
+            npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
+            npx marge cypress/reports/report.json --reportDir cypress/reports
+          else
+            echo "No mochawesome reports found!"
+          fi
+        shell: bash
 
       - name: Upload test results
         if: always()
@@ -55,7 +68,8 @@ jobs:
           body: "Hi Harry, Cypress Test Execution Report:\n\nSee the attached report."
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          attachments: "reports/mochawesome.html"
+          attachments: "cypress/reports/mochawesome.html"
+
       - name: Send Email Notification on Success
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -68,4 +82,4 @@ jobs:
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
           body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nSee the attached report.🎉"
-          attachments: "reports/mochawesome.html"
+          attachments: "cypress/reports/mochawesome.html"
