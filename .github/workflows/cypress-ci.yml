@@ -38,3 +38,29 @@ jobs:
         with:
           name: cypress-test-results
           path: cypress/reports
+
+      - name: Send Email Notification on Failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "❌ Cypress Tests Failed"
+          to: "himanshupant.qa@gmail.com"
+          from: "GitHub Actions"
+          body: "Hi Harry, Cypress tests have failed. Check the test results here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Send Email Notification on Success
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "✅ Cypress Tests Passed"
+          to: "himanshuagamismtp@gmail.com"
+          from: "GitHub Actions"
+          body: "Hi Harry, All Cypress tests passed successfully! 🎉"
