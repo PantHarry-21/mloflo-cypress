@@ -33,7 +33,8 @@ jobs:
         run: npx cypress run --browser chrome --reporter mochawesome
 
       - name: Set Current Date as an Environment Variable
-        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        run: echo "DATE=$(Get-Date -Format 'yyyy-MM-dd')" | Out-File -FilePath $env:GITHUB_ENV -Append
+        shell: powershell
 
       - name: Upload test results
         if: always()
