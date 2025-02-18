@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-02-17T20:08:14.374Z",
-    "end": "2025-02-17T20:08:34.322Z",
-    "duration": 19948,
+    "start": "2025-02-18T18:09:28.495Z",
+    "end": "2025-02-18T18:09:50.872Z",
+    "duration": 22377,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "3889dd98-95dc-4dbe-bf33-30eb5cbc4f3a",
+      "uuid": "f121edae-1ec8-407c-b3f2-3a6cec672024",
       "title": "",
       "fullFile": "e2e\\tests\\login.cy.js",
       "file": "e2e\\tests\\login.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "6d6d8856-4f08-40de-b443-7f5c8e2cc293",
+          "uuid": "b437c554-a0b1-4d50-9647-2e2ae70a93be",
           "title": "Login and Navigation Scenarios",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "Login with valid credentials",
               "fullTitle": "Login and Navigation Scenarios Login with valid credentials",
               "timedOut": null,
-              "duration": 19848,
+              "duration": 22329,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\");\ncy.url().should(\"include\", \"/dashboard\");",
               "err": {},
-              "uuid": "539caac8-37c0-4c46-9cbb-59b9b844e649",
-              "parentUUID": "6d6d8856-4f08-40de-b443-7f5c8e2cc293",
+              "uuid": "cdedf5ca-ad81-4480-bc7c-1c7fd16e6a2c",
+              "parentUUID": "b437c554-a0b1-4d50-9647-2e2ae70a93be",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "539caac8-37c0-4c46-9cbb-59b9b844e649"
+            "cdedf5ca-ad81-4480-bc7c-1c7fd16e6a2c"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 19848,
+          "duration": 22329,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

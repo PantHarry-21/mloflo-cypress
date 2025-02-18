@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-02-17T20:10:24.174Z",
-    "end": "2025-02-17T20:10:46.332Z",
-    "duration": 22158,
+    "start": "2025-02-18T18:11:36.953Z",
+    "end": "2025-02-18T18:12:05.463Z",
+    "duration": 28510,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "608b65e5-cb34-40f2-8390-58de13b60785",
+      "uuid": "1cc9cc2f-e050-4913-b1dd-41d8b2b3efd8",
       "title": "",
       "fullFile": "e2e\\tests\\addCustomLink.cy.js",
       "file": "e2e\\tests\\addCustomLink.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "8641afbf-92bb-430b-b201-7f73b6a50329",
+          "uuid": "bef4c042-de89-41c4-914e-df55e321bee4",
           "title": "Add custom link",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "Add custom link",
               "fullTitle": "Add custom link Add custom link",
               "timedOut": null,
-              "duration": 21965,
+              "duration": 28395,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\");\ncy.url().should(\"include\", \"/dashboard\");\ncy.get('.user > div > .dropdown-custom > .dropdown-toggle > .user-profile-box').click();\ncy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(4) > .dropdown-item').click();\ncy.get('#content > .page-loader > .content-box > .d-flex > .button').click();\ncy.get('#modalBody > .page-loader > .form-row > .col-lg-6:nth-child(1) > .champ-form__cm-input').click();\ncy.get('#modalBody > .page-loader > .form-row > .col-lg-6:nth-child(1) > .champ-form__cm-input').type(faker.company.name());\ncy.get('#modalBody > .page-loader > .form-row > .col-lg-6:nth-child(2) > .champ-form__cm-input').type(faker.lorem.word());\ncy.get('#modalBody > .page-loader > .form-row > .col-lg-6:nth-child(1) > .champ-form__cm-input').click();\ncy.get('#modalBody > .page-loader > .form-row > .col-lg-6 > .d-flex').click();\ncy.visit('https://uat.mloflo.com/loan-officer/links');",
               "err": {},
-              "uuid": "47c4b697-88fa-4965-ad32-ac97542ca125",
-              "parentUUID": "8641afbf-92bb-430b-b201-7f73b6a50329",
+              "uuid": "6466ae47-60f7-40a9-8a4a-03643b858c79",
+              "parentUUID": "bef4c042-de89-41c4-914e-df55e321bee4",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "47c4b697-88fa-4965-ad32-ac97542ca125"
+            "6466ae47-60f7-40a9-8a4a-03643b858c79"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 21965,
+          "duration": 28395,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

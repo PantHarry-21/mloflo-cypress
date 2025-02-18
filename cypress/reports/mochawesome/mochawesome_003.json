@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 0,
+    "passes": 1,
     "pending": 0,
-    "failures": 1,
-    "start": "2025-02-17T20:09:50.354Z",
-    "end": "2025-02-17T20:10:16.714Z",
-    "duration": 26360,
+    "failures": 0,
+    "start": "2025-02-18T18:11:03.600Z",
+    "end": "2025-02-18T18:11:22.187Z",
+    "duration": 18587,
     "testsRegistered": 1,
-    "passPercent": 0,
+    "passPercent": 100,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "c014fb47-c4f9-40b6-89bc-a3c9c5ac0298",
+      "uuid": "8ae66b72-7fec-47b4-9fd3-ce30a88ab08d",
       "title": "",
       "fullFile": "e2e\\tests\\resetPassword.cy.js",
       "file": "e2e\\tests\\resetPassword.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "fe0b0701-d09a-4ce1-bb65-8683872c967d",
+          "uuid": "8280c776-c048-4783-bf2d-4d7a49dac09a",
           "title": "Reset password",
           "fullFile": "",
           "file": "",
@@ -38,33 +38,29 @@
               "title": "Reset password",
               "fullTitle": "Reset password Reset password",
               "timedOut": null,
-              "duration": 26295,
-              "state": "failed",
-              "speed": null,
-              "pass": false,
-              "fail": true,
+              "duration": 18482,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
               "pending": false,
               "context": null,
-              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@1234\");\ncy.url().should(\"include\", \"/dashboard\");\ncy.get('.page-loader > .dashboard-processor__right > .verticle-middle > .form-row > .col-md-5').click();\ncy.get('div > .dropdown-custom > .dropdown-toggle > .user-profile-box > .d-flex').click();\ncy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(1) > .dropdown-item').click();\ncy.get('.mileStone > .d-flex > .mileStone-tab > .nav-item:nth-child(3) > .nav-link').click();\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(1) > .input-group > .champ-form__cm-input').type('Harry@1234');\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(2) > .input-group > .champ-form__cm-input').type('Harry@123');\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(3) > .input-group > .champ-form__cm-input').type('Harry@123');\ncy.get('.form-row > .form-row > .position-relative > .button > .text__size12').click();\ncy.get('.Snackbar_snackbar__text__1Hx2a').should('contain', 'Password reset successfully');",
-              "err": {
-                "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://uat.mloflo.com/login' to include '/dashboard'",
-                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://uat.mloflo.com/login' to include '/dashboard'\n    at Context.eval (webpack://mloflo-cypress/./e2e/tests/resetPassword.cy.js:16:13)",
-                "diff": null
-              },
-              "uuid": "ed6c9677-2859-4407-a198-5a8acae82f87",
-              "parentUUID": "fe0b0701-d09a-4ce1-bb65-8683872c967d",
+              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\");\ncy.url().should(\"include\", \"/dashboard\");\ncy.get('.page-loader > .dashboard-processor__right > .verticle-middle > .form-row > .col-md-5').click();\ncy.get('div > .dropdown-custom > .dropdown-toggle > .user-profile-box > .d-flex').click();\ncy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(1) > .dropdown-item').click();\ncy.get('.mileStone > .d-flex > .mileStone-tab > .nav-item:nth-child(3) > .nav-link').click();\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(1) > .input-group > .champ-form__cm-input').type('Harry@1234');\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(2) > .input-group > .champ-form__cm-input').type('Harry@123');\ncy.get('.w-100 > .form-row > .col-lg-4:nth-child(3) > .input-group > .champ-form__cm-input').type('Harry@123');\ncy.get('.form-row > .form-row > .position-relative > .button > .text__size12').click();\n// cy.get('.Snackbar_snackbar__text__1Hx2a').should('contain', 'Password reset successfully')",
+              "err": {},
+              "uuid": "da99f2cf-7bf4-47b1-9dbb-c96055462161",
+              "parentUUID": "8280c776-c048-4783-bf2d-4d7a49dac09a",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [],
-          "failures": [
-            "ed6c9677-2859-4407-a198-5a8acae82f87"
+          "passes": [
+            "da99f2cf-7bf4-47b1-9dbb-c96055462161"
           ],
+          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 26295,
+          "duration": 18482,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
