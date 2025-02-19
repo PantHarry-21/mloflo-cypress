@@ -28,9 +28,15 @@ module.exports = defineConfig({
         "e2e/tests/addBorrowerLead.cy.js",
         "e2e/tests/addPartnerContact.cy.js",
         "e2e/tests/addPartnerLead.cy.js",
-        "e2e/test scenarios/loginScenarios.cy.js",
+        "e2e/tests/addVipPartner.cy.js",
+        "e2e/tests/sendleadPartner.cy.js",
+        "e2e/tests/addSource.cy.js",
+        "e2e/tests/addDisposition.cy.js",
+        "e2e/tests/addTags.cy.js",
         "e2e/tests/addCustomLink.cy.js",
         "e2e/tests/addPartner.cy.js",
+        "e2e/tests/addAffiliations.cy.js"
+        // "e2e/test scenarios/loginScenarios.cy.js",
         //  "e2e/test scenarios/addBorrowerLeadScenarios.cy.js"
       ],
     defaultCommandTimeout: 15000,
