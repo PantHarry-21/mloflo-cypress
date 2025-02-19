@@ -1,18 +1,19 @@
 
+// Custom command to handle login
 Cypress.Commands.add("login", (email, password) => {
-    cy.get("input[name='email']").clear().type(email);
-    cy.get("input[placeholder='Password']").clear().type(password);
-    cy.get("#submit").click();
+    cy.get("input[name='email']").clear().type(email); // Enter email
+    cy.get("input[placeholder='Password']").clear().type(password); // Enter password
+    cy.get("#submit").click(); // Click submit button
 });
 
-describe("Login and Navigation Scenarios", () => {
+describe("Login Functionality - Optimized", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/");
+        cy.visit("https://uat.mloflo.com/"); // Navigate to login page
     });
 
-    it("Login with valid credentials", () => {
-    cy.login("himanshupant.qa@gmail.com", "Harry@123");
-    cy.url().should("include", "/dashboard");
-});
-
+    it("Logs in with valid credentials", () => {
+        cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Perform login
+        cy.url().should("include", "/dashboard"); // Verify successful login
+        cy.get('.dashboard').should('be.visible'); // Ensure dashboard is loaded
+    });
 })
