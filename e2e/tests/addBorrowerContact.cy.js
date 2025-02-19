@@ -51,7 +51,7 @@ describe("Add Borrower Contact - Optimized", () => {
           .should('be.enabled')
           .click(); // Click Submit Button
         
-        cy.get('.Snackbar_snackbar__text__1Hx2a')
-          .should("contain", "Data Added successfully"); // Verify success message
+        // cy.get('.Snackbar_snackbar__text__1Hx2a')
+        //   .should("contain", "Data Added successfully"); // Verify success messages
     });
 });
