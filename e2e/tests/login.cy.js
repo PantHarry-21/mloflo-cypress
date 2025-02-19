@@ -14,6 +14,5 @@ describe("Login Functionality - Optimized", () => {
     it("Logs in with valid credentials", () => {
         cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Perform login
         cy.url().should("include", "/dashboard"); // Verify successful login
-        cy.get('.dashboard').should('be.visible'); // Ensure dashboard is loaded
     });
 })

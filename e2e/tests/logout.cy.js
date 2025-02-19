@@ -1,4 +1,10 @@
 // Custom command to handle logout
+Cypress.Commands.add("login", (email, password) => {
+    cy.get("input[name='email']").clear().type(email);
+    cy.get("input[placeholder='Password']").clear().type(password);
+    cy.get("#submit").click();
+});
+
 Cypress.Commands.add("logout", () => {
     cy.get('.user-profile-box').should('be.visible').click(); // Open user menu
     cy.get('.dropdown-menu .logout').should('be.visible').click(); // Click logout button
