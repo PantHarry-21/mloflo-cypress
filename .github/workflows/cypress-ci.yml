@@ -64,12 +64,22 @@ jobs:
           name: cypress-test-results
           path: cypress/reports
 
+      - name: Debug Report Directory
+        run: Get-ChildItem -Path $PWD -Recurse
+        shell: pwsh
+
       - name: Find Latest Mochawesome Report
         run: |
-            $latestReport = Get-ChildItem -Path "/cypress/reports/mochawesome" -Filter "mochawesome_*.html" |
+          $reportDir = "$Env:GITHUB_WORKSPACE/cypress/reports/mochawesome"
+          if (Test-Path $reportDir) {
+            $latestReport = Get-ChildItem -Path $reportDir -Filter "mochawesome_*.html" | 
                             Sort-Object LastWriteTime -Descending | 
                             Select-Object -First 1
-            echo "LATEST_REPORT=$latestReport" | Out-File -FilePath $env:GITHUB_ENV -Append
+            echo "LATEST_REPORT=$($latestReport.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          } else {
+            echo "Report directory does not exist: $reportDir"
+            exit 1
+          }
         shell: pwsh
         
       - name: Send Email Notification on Failure
