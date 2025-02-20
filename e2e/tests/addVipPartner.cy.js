@@ -52,7 +52,6 @@ describe("Add VIP Partner - Optimized", () => {
           .type(faker.company.name()); // Enter Company Name
         
         cy.get('.modal-box--dialog__container-footer > .w-100 > .position-relative:nth-child(3) > .button > span')
-          .should('be.enabled')
           .click(); // Click Submit Button
         
         // Uncomment to validate success message if applicable

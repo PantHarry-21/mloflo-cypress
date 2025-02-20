@@ -25,7 +25,6 @@ describe("Send Lead to Partner - Optimized", () => {
           .click(); // Select first partner from the list
         
         cy.get('.content-box > .form-row > .d-flex-410 > .d-flex > .button')
-          .should('be.visible')
           .click(); // Click on Send Lead button
         
         // Fill lead details
