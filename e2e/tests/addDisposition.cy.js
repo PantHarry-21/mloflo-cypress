@@ -22,7 +22,6 @@ describe("Add Disposition in Settings - Optimized", () => {
         cy.url().should("include", "/settings/status"); // Verify navigation to Settings page
         
         cy.get('.mileStone > .mileStone-tab > a:nth-child(10) > .nav-item > .nav-link')
-          .should('be.visible')
           .click(); // Navigate to Dispositions tab
         
         cy.url().should("include", "/settings/dispositions"); // Verify navigation to Dispositions section

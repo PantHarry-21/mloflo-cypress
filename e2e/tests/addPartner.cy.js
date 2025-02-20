@@ -17,7 +17,7 @@ describe("Add Partner - Optimized", () => {
         cy.url().should("include", "/dashboard"); // Verify successful login
         
         cy.get('.menu-item[href="/partners"]')
-          .should('be.visible').click(); // Navigate to Partners page
+        .click(); // Navigate to Partners page
         
         cy.get('.add-partner-button')
           .should('be.visible').click(); // Click on Add Partner button

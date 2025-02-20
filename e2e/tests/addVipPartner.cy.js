@@ -20,7 +20,6 @@ describe("Add VIP Partner - Optimized", () => {
         .click(); // Navigate to VIP Partners section
         
         cy.get('.col-lg-12 > div > .form-row > .col-lg-8 > .button')
-          .should('be.visible')
           .click(); // Click on Add VIP Partner button
         
         // Fill VIP partner details

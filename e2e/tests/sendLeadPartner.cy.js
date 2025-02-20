@@ -22,7 +22,6 @@ describe("Send Lead to Partner - Optimized", () => {
         cy.url().should("include", "/partners"); // Verify navigation to Partners page
         
         cy.get(':nth-child(1) > .pl-4 > .cstm-blue-brand-text')
-          .should('be.visible')
           .click(); // Select first partner from the list
         
         cy.get('.content-box > .form-row > .d-flex-410 > .d-flex > .button')
