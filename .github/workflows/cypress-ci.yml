@@ -66,7 +66,7 @@ jobs:
 
       - name: Find Latest Mochawesome Report
         run: |
-            $latestReport = Get-ChildItem -Path "C:\Users\pantq\cypress\cypress\reports\mochawesome\" -Filter "mochawesome_*.html" | 
+            $latestReport = Get-ChildItem -Path "/cypress/reports/mochawesome" -Filter "mochawesome_*.html" |
                             Sort-Object LastWriteTime -Descending | 
                             Select-Object -First 1
             echo "LATEST_REPORT=$latestReport" | Out-File -FilePath $env:GITHUB_ENV -Append
