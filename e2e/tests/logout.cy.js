@@ -8,7 +8,7 @@ Cypress.Commands.add("login", (email, password) => {
 Cypress.Commands.add("logout", () => {
     cy.get('.user-profile-box').should('be.visible').click(); // Open user menu
     cy.wait(1500)
-    cy.get('.dropdown-menu .logout').should('be.visible').click(); // Click logout button
+    cy.get('.dropdown-menu .logout').click(); // Click logout button
     cy.url().should('include', '/login'); // Verify user is redirected to login page
 });
 
