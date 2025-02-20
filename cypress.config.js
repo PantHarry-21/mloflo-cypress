@@ -27,6 +27,7 @@ module.exports = defineConfig({
       "e2e/tests/login.cy.js",
       "e2e/tests/addBorrower.cy.js",
       "e2e/tests/logout.cy.js",
+      "e2e/tests/addPartnerHeader.cy.js",
       "e2e/tests/resetPassword.cy.js",
       "e2e/tests/addBorrowerContact.cy.js",
       "e2e/tests/addBorrowerLead.cy.js",

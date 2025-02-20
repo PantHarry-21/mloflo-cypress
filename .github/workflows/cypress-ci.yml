@@ -106,8 +106,8 @@ jobs:
           body: "Hi Harry, Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          # attachments: "${{ env.LATEST_REPORT }}"
-          attachments: "cypress/reports/mochawesome/merged-report.html"
+          attachments: "${{ env.LATEST_REPORT }}"
+          # attachments: "cypress/reports/mochawesome/merged-report.html"
           
       - name: Send Email Notification on Success
         if: success()
@@ -121,6 +121,6 @@ jobs:
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
           body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
-          # attachments: "${{ env.LATEST_REPORT }}"
-          attachments: "cypress/reports/mochawesome/merged-report.html"
+          attachments: "${{ env.LATEST_REPORT }}"
+          # attachments: "cypress/reports/mochawesome/merged-report.html"
         
