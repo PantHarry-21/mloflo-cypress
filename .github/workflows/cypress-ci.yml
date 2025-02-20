@@ -64,35 +64,39 @@ jobs:
           name: cypress-test-results
           path: cypress/reports
 
-      - name: Debug Report Files
-        run: ls -R cypress/reports/
-        shell: bash
+          - name: Find Latest Mochawesome Report
+          run: |
+            $latestReport = Get-ChildItem -Path "C:\Users\pantq\cypress\cypress\reports\mochawesome\" -Filter "mochawesome_*.html" | 
+                            Sort-Object LastWriteTime -Descending | 
+                            Select-Object -First 1
+            echo "LATEST_REPORT=$latestReport" | Out-File -FilePath $env:GITHUB_ENV -Append
+          shell: pwsh
         
-
-      - name: Send Email Notification on Failure
-        if: failure()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "❌ Cypress Test Failed - ${{ env.DATE }}"
-          body: "Hi Harry, Cypress Test Execution Report:\n\nSee the attached report."
-          to: "himanshuagamismtp@gmail.com"
-          from: "GitHub Actions"
-          attachments: "cypress/reports/mochawesome-report/index.html"
-
-      - name: Send Email Notification on Success
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "✅ Cypress Tests Passed - ${{ env.DATE }}"
-          to: "himanshuagamismtp@gmail.com"
-          from: "GitHub Actions"
-          body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nSee the attached report.🎉"
-          attachments: "cypress/reports/mochawesome/index.html"
+          - name: Send Email Notification on Failure
+            if: failure()
+            uses: dawidd6/action-send-mail@v3
+            with:
+              server_address: smtp.gmail.com
+              server_port: 587
+              username: ${{ secrets.SMTP_USERNAME }}
+              password: ${{ secrets.SMTP_PASSWORD }}
+              subject: "❌ Cypress Test Failed - ${{ env.DATE }}"
+              body: "Hi Harry, Cypress Test Execution Report:\n\nSee the attached report."
+              to: "himanshuagamismtp@gmail.com"
+              from: "GitHub Actions"
+              attachments: "${{ env.LATEST_REPORT }}"
+          
+          - name: Send Email Notification on Success
+            if: success()
+            uses: dawidd6/action-send-mail@v3
+            with:
+              server_address: smtp.gmail.com
+              server_port: 587
+              username: ${{ secrets.SMTP_USERNAME }}
+              password: ${{ secrets.SMTP_PASSWORD }}
+              subject: "✅ Cypress Tests Passed - ${{ env.DATE }}"
+              to: "himanshuagamismtp@gmail.com"
+              from: "GitHub Actions"
+              body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nSee the attached report.🎉"
+              attachments: "${{ env.LATEST_REPORT }}"
+        
