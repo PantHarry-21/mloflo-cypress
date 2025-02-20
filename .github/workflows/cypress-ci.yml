@@ -88,6 +88,11 @@ jobs:
             exit 1
           }
         shell: pwsh
+      - name: Merge Test Reports
+        run: |
+          npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
+          npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
+        shell: bash
         
       - name: Send Email Notification on Failure
         if: failure()
@@ -98,10 +103,11 @@ jobs:
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "❌ Cypress Test Failed - ${{ env.DATE }}"
-          body: "Hi Harry, Cypress Test Execution Report:\n\nSee the attached report."
+          body: "Hi Harry, Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          attachments: "${{ env.LATEST_REPORT }}"
+          # attachments: "${{ env.LATEST_REPORT }}"
+          attachments: "cypress/reports/mochawesome/merged-report.html"
           
       - name: Send Email Notification on Success
         if: success()
@@ -114,6 +120,7 @@ jobs:
           subject: "✅ Cypress Tests Passed - ${{ env.DATE }}"
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nSee the attached report.🎉"
-          attachments: "${{ env.LATEST_REPORT }}"
+          body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
+          # attachments: "${{ env.LATEST_REPORT }}"
+          attachments: "cypress/reports/mochawesome/merged-report.html"
         
