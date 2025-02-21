@@ -4,19 +4,31 @@ describe('test_name', function() {
   
       cy.viewport(1280, 631)
    
-      cy.visit('https://uat.mloflo.com/loan-officer/dashboard')
-
+      cy.visit('https://app.mloflo.com/loan-officer/dashboard')
       cy.get('div > .dropdown-custom > .dropdown-toggle > .bg-transparent > .uil-plus').click()
-      cy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(1) > span').click()
-      cy.get('#modalBody > .form-row > .form-group:nth-child(1) > .selectDiv > .champ-form__cm-input').select('RT')
-      cy.get('#modalBody > .form-row > .form-group:nth-child(2) > .selectDiv > .champ-form__cm-input').select('PC')
-      cy.get('#modalBody > .form-row > .cstm-light-text:nth-child(3) > .selectDiv > .champ-form__cm-input').select('selfgen')
-      cy.get('form > #modalBody > .form-row > .cstm-light-text:nth-child(5) > .champ-form__cm-input').type('P')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(6) > .champ-form__cm-input').type('One')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(7) > .champ-form__cm-input').type('p1@mailinator.com')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(8) > .champ-form__cm-input').type('(888) 888-8888')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(12) > .champ-form__cm-input').type('AAA')
-      cy.get('.modal-box--dialog__container-footer > .w-100 > .position-relative:nth-child(3) > .button > span').click()
+      cy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(3) > span').click()
+      cy.get('.form-row > .col-lg-7 > .position-relative > .form-group > .champ-form__cm-input').click()
+      cy.get('.form-row > .col-lg-7 > .position-relative > .form-group > .champ-form__cm-input').type('Automated event')
+      cy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click()
+      cy.get('.border__bottom-dark > .form-group > .froala-mail-editor > #froala-editor > .position-relative:nth-child(1)').click()
+      cy.get('.form-group > .froala-mail-editor > #froala-editor > .position-relative > .button').click()
+      cy.get('.froala-mail-editor > #froala-editor > .champ-form__cm-input > #draft-mail-input > .w-90').type('AUTOMATED EVENT')
+      cy.get('#froala-editor > .champ-form__cm-input > .d-flex > .position-relative > .button').click()
+      cy.get('.position-relative > .draft-response-box > .draft-response-box-outer > .p-2 > .cursor-pointer:nth-child(5)').click()
+      cy.get('#modalBody > form > .border__top-grey > .position-relative > .button').click()
+   
+   })
+  
+  })
+  describe('test_name', function() {
+
+   it('what_it_does', function() {
+  
+      cy.viewport(1280, 631)
+   
+      cy.visit('https://app.mloflo.com/loan-officer/dashboard')
+   
+      cy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click()
    
    })
   
