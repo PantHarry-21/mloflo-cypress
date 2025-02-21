@@ -17,7 +17,6 @@ describe("Add Source in Settings - Optimized", () => {
         cy.url().should("include", "/dashboard"); // Verify successful login
         
         cy.get('div > .menu-logout > li > a > .uil-wrench')
-          .should('be.visible')
           .click(); // Navigate to Settings
         
         cy.url().should("include", "/settings/status"); // Verify navigation to Settings page

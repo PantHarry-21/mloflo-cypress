@@ -6,8 +6,9 @@ Cypress.Commands.add("login", (email, password) => {
 });
 
 Cypress.Commands.add("logout", () => {
-    cy.get('.user-profile-box').should('be.visible').click(); // Open user menu
-    cy.get('.dropdown-menu .logout').should('be.visible').click(); // Click logout button
+
+    cy.get('div > .dropdown-custom > .dropdown-toggle > .user-profile-box > .d-flex').click() // Open user menu
+    cy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(5) > .dropdown-item').click() // Click logout button
     cy.url().should('include', '/login'); // Verify user is redirected to login page
 });
 

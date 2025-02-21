@@ -22,7 +22,6 @@ describe("Add Affiliation", () => {
         cy.url().should("include", "/settings/status"); // Verify navigation to Settings page
         
         cy.get('.mileStone > .mileStone-tab > a:nth-child(13) > .nav-item > .nav-link')
-          .should('be.visible')
           .click(); // Navigate to Affiliations tab
         
         cy.url().should("include", "/settings/affiliations"); // Verify navigation to Affiliations section

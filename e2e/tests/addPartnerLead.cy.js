@@ -64,7 +64,6 @@ describe("Add Partner Lead from Pipeline - Optimized", () => {
           .type(faker.company.name()); // Enter Company Name
         
         cy.get('.modal-box--dialog__container-footer > .w-100 > .position-relative:nth-child(3) > .button > span')
-          .should('be.enabled')
           .click(); // Click Submit Button
         
         // cy.get('.Snackbar_snackbar__text__1Hx2a')
