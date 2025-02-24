@@ -57,6 +57,7 @@ jobs:
             exit 1
           fi
         shell: bash
+      
 
       - name: Debug Report Directory After Merge
         run: ls -l cypress/reports/mochawesome || echo "No merged report found!"
