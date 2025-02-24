@@ -1,4 +1,4 @@
-name: Cypress Tests on Windows
+name: Mloflo automation testing
 
 on:
   push:
@@ -32,7 +32,6 @@ jobs:
         run: npx cypress run --browser chrome --reporter mochawesome
 
       - name: Upload Cypress Videos
-        # if: always ()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-test-videos
@@ -43,25 +42,17 @@ jobs:
         shell: powershell
 
       - name: Ensure Report Directory Exists
-        run: mkdir -p cypress/reports
+        run: mkdir -p cypress/reports/mochawesome
         shell: bash
 
       - name: Generate Cypress Report
         run: |
           if [ -f cypress/reports/mochawesome.json ]; then
-            npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
-            npx marge cypress/reports/report.json --reportDir cypress/reports
+            npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
+            npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
           else
             echo "No mochawesome reports found!"
           fi
-        shell: bash
-
-      - name: Wait for Report Generation
-        run: sleep 10
-        shell: bash
-
-      - name: Debug Report Existence
-        run: ls -l cypress/reports
         shell: bash
 
       - name: Upload test results
@@ -71,29 +62,19 @@ jobs:
           name: cypress-test-results
           path: cypress/reports/mochawesome/
 
-      - name: Debug Report Directory
-        run: Get-ChildItem -Path $PWD -Recurse
-        shell: pwsh
-
       - name: Find Latest Mochawesome Report
         run: |
           $reportDir = "$Env:GITHUB_WORKSPACE/cypress/reports/mochawesome"
           if (Test-Path $reportDir) {
-            $latestReport = Get-ChildItem -Path $reportDir -Filter "mochawesome_*.html" | 
-                            Sort-Object LastWriteTime -Descending | 
-                            Select-Object -First 1
-            echo "LATEST_REPORT=$($latestReport.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
-          } else {
-            echo "Report directory does not exist: $reportDir"
-            exit 1
+            $latestReport = Get-ChildItem -Path $reportDir -Filter "*.html" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+            if ($latestReport) {
+              echo "LATEST_REPORT=$($latestReport.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+            } else {
+              echo "LATEST_REPORT=" | Out-File -FilePath $env:GITHUB_ENV -Append
+            }
           }
         shell: pwsh
-      - name: Merge Test Reports
-        run: |
-          npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
-          npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
-        shell: bash
-        
+
       - name: Send Email Notification on Failure
         if: failure()
         uses: dawidd6/action-send-mail@v3
@@ -106,9 +87,8 @@ jobs:
           body: "Hi Harry, Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          attachments: "${{ env.LATEST_REPORT }}"
-          # attachments: "cypress/reports/mochawesome/merged-report.html"
-          
+          attachments: ${{ env.LATEST_REPORT != '' && env.LATEST_REPORT || '' }}
+
       - name: Send Email Notification on Success
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -118,9 +98,7 @@ jobs:
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "✅ Cypress Tests Passed - ${{ env.DATE }}"
+          body: "Hi Harry, All Cypress tests passed successfully! \n\nPlease find the attached Cypress Test Report."
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
-          attachments: "${{ env.LATEST_REPORT }}"
-          # attachments: "cypress/reports/mochawesome/merged-report.html"
-        
+          attachments: ${{ env.LATEST_REPORT != '' && env.LATEST_REPORT || '' }}
