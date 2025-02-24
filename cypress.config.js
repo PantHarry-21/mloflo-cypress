@@ -6,9 +6,9 @@ module.exports = defineConfig({
 
   reporterOptions: {
     reportDir: "cypress/reports/mochawesome",
-    overwrite: false,
-    html: true,
-    json: true,
+    html: true,  // ✅ Ensures HTML reports are generated
+    json: true,  // ✅ Ensures JSON reports are available for merging
+    inline: true // ✅ Embeds CSS/JS inside the HTML report
   },
 
   video: true, // Enable video recording globally
