@@ -15,6 +15,7 @@ module.exports = defineConfig({
   videoCompression: 32, // Reduce video file size
   videosFolder: "cypress/videos", // Default folder
   screenshotOnRunFailure: true, // Take screenshots on failures
+  videoCompression: false,  // ✅ Disables video compression
 
   e2e: {
     setupNodeEvents(on, config) {

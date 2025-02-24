@@ -31,11 +31,13 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run --browser chrome --reporter mochawesome
 
-      - name: Upload Cypress Videos
+      - name: Upload Cypress Videos (Uncompressed)
         uses: actions/upload-artifact@v4
         with:
           name: cypress-test-videos
           path: cypress/videos
+          retention-days: 5  # ✅ Keeps videos for 5 days (optional)
+      
 
       - name: Ensure Report Directory Exists
         run: mkdir -p cypress/reports/mochawesome
