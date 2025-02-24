@@ -39,6 +39,7 @@ module.exports = defineConfig({
       "e2e/tests/addSource.cy.js",
       "e2e/tests/addDisposition.cy.js",
       "e2e/tests/addMarketingFolder.cy.js",
+      "e2e/tests/addMarketingCampaign.cy.js",
       "e2e/tests/addTags.cy.js",
       "e2e/tests/addCustomLink.cy.js",
       "e2e/tests/addEventHeader.cy.js",
