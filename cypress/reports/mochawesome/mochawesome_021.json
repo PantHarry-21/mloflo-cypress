@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-02-24T13:57:23.438Z",
+    "end": "2025-02-24T13:58:03.625Z",
+    "duration": 40187,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "7748a42e-f8a0-4212-8946-79f740c1d082",
+      "title": "",
+      "fullFile": "e2e\\tests\\addEventHeader.cy.js",
+      "file": "e2e\\tests\\addEventHeader.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c0cb1da1-47ef-450a-8691-89a707725648",
+          "title": "Add partner from header",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Add partner from header",
+              "fullTitle": "Add partner from header Add partner from header",
+              "timedOut": null,
+              "duration": 40029,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login(\"iyer@mailinator.com\", \"Iyer@1234\"); // Login with valid credentials\ncy.url().should(\"include\", \"/dashboard\"); // Verify successful login\ncy.get('div > .dropdown-custom > .dropdown-toggle > .bg-transparent > .uil-plus').click();\ncy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(3) > span').click();\ncy.get('.form-row > .col-lg-7 > .position-relative > .form-group > .champ-form__cm-input').type(faker.lorem.word());\ncy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click();\ncy.get('.border__bottom-dark > .form-group > .froala-mail-editor > #froala-editor > .position-relative:nth-child(1)').click();\ncy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click().type(faker.lorem.paragraph());\ncy.get('.position-relative > .button').click();",
+              "err": {},
+              "uuid": "95c0a8e2-4bea-4e52-b843-d4bed6ee5c66",
+              "parentUUID": "c0cb1da1-47ef-450a-8691-89a707725648",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "95c0a8e2-4bea-4e52-b843-d4bed6ee5c66"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 40029,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

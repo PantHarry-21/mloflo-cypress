@@ -41,19 +41,23 @@ jobs:
         run: mkdir -p cypress/reports/mochawesome
         shell: bash
 
+      - name: Debug Available Report Files
+        run: ls -l cypress/reports/mochawesome || echo "No reports found!"
+        shell: bash
+
       - name: Merge Test Reports
         run: |
-          if [ -f cypress/reports/mochawesome/*.json ]; then
+          if ls cypress/reports/mochawesome/*.json 1> /dev/null 2>&1; then
             npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
-            npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
+            npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline true
           else
-            echo "No mochawesome reports found!"
+            echo "❌ No mochawesome reports found!"
             exit 1
           fi
         shell: bash
 
-      - name: Debug Report Directory
-        run: ls -l cypress/reports/mochawesome
+      - name: Debug Report Directory After Merge
+        run: ls -l cypress/reports/mochawesome || echo "No merged report found!"
         shell: bash
 
       - name: Extract Test Summary
@@ -65,12 +69,14 @@ jobs:
             PASSED=$(jq '.stats.passes' $REPORT_JSON)
             FAILED=$(jq '.stats.failures' $REPORT_JSON)
             SKIPPED=$(jq '.stats.skipped' $REPORT_JSON)
-            echo "TOTAL_TESTS=$TOTAL" >> $GITHUB_ENV
-            echo "PASSED_TESTS=$PASSED" >> $GITHUB_ENV
-            echo "FAILED_TESTS=$FAILED" >> $GITHUB_ENV
-            echo "SKIPPED_TESTS=$SKIPPED" >> $GITHUB_ENV
+      
+            # Ensure values are set, fallback to 0 if empty
+            echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
+            echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
+            echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
+            echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
           else
-            echo "Merged report JSON not found!"
+            echo "❌ Error: Merged report JSON not found!"
             exit 1
           fi
         shell: bash
