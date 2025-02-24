@@ -1,24 +1,7 @@
-describe('test_name', function() {
-
-   it('what_it_does', function() {
-  
-      cy.viewport(1280, 631)
-   
-      cy.visit('https://uat.mloflo.com/loan-officer/dashboard')
-
-      cy.get('div > .dropdown-custom > .dropdown-toggle > .bg-transparent > .uil-plus').click()
-      cy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(1) > span').click()
-      cy.get('#modalBody > .form-row > .form-group:nth-child(1) > .selectDiv > .champ-form__cm-input').select('RT')
-      cy.get('#modalBody > .form-row > .form-group:nth-child(2) > .selectDiv > .champ-form__cm-input').select('PC')
-      cy.get('#modalBody > .form-row > .cstm-light-text:nth-child(3) > .selectDiv > .champ-form__cm-input').select('selfgen')
-      cy.get('form > #modalBody > .form-row > .cstm-light-text:nth-child(5) > .champ-form__cm-input').type('P')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(6) > .champ-form__cm-input').type('One')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(7) > .champ-form__cm-input').type('p1@mailinator.com')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(8) > .champ-form__cm-input').type('(888) 888-8888')
-      cy.get('form > #modalBody > .form-row > .form-group:nth-child(12) > .champ-form__cm-input').type('AAA')
-      cy.get('.modal-box--dialog__container-footer > .w-100 > .position-relative:nth-child(3) > .button > span').click()
-   
-   })
-  
-  })
-  
+cy.get('div > .menu-logout > li:nth-child(9) > a > .text__size12').click()
+ 
+    cy.get('.position-relative > .w-100 > .two > .text-center > .cstm-grey-brand:nth-child(1)').click()
+    cy.get('.modal-box--dialog__container > form > #modalBody > .mb-2 > .input-header').type('folder')
+    cy.get('#modalBody > .mb-2 > .d-flex > .select-color-border:nth-child(8) > .cursor-pointer').click()
+    cy.get('form > .modal-box--dialog__container-footer > .d-flex > .position-relative > .button').click()
+    cy.get('#mloflo_body > #root > .Snackbar_snackbar-wrapper__ocbPJ > .Snackbar_snackbar__GsYZl > .Snackbar_snackbar__text__1Hx2a').click()

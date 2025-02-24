@@ -1,4 +1,4 @@
-name: Cypress Tests on Windows
+name: Mloflo automation testing
 
 on:
   push:
@@ -32,95 +32,81 @@ jobs:
         run: npx cypress run --browser chrome --reporter mochawesome
 
       - name: Upload Cypress Videos
-        # if: always ()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-test-videos
           path: cypress/videos
 
-      - name: Set Current Date as an Environment Variable
-        run: echo "DATE=$(Get-Date -Format 'yyyy-MM-dd')" | Out-File -FilePath $env:GITHUB_ENV -Append
-        shell: powershell
-
       - name: Ensure Report Directory Exists
-        run: mkdir -p cypress/reports
+        run: mkdir -p cypress/reports/mochawesome
         shell: bash
 
-      - name: Generate Cypress Report
+      - name: Debug Available Report Files
+        run: ls -l cypress/reports/mochawesome || echo "No reports found!"
+        shell: bash
+
+      - name: Merge Test Reports
         run: |
-          if [ -f cypress/reports/mochawesome.json ]; then
-            npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
-            npx marge cypress/reports/report.json --reportDir cypress/reports
+          if ls cypress/reports/mochawesome/*.json 1> /dev/null 2>&1; then
+            npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
+            npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline true
           else
-            echo "No mochawesome reports found!"
+            echo "❌ No mochawesome reports found!"
+            exit 1
           fi
         shell: bash
 
-      - name: Wait for Report Generation
-        run: sleep 10
+      - name: Debug Report Directory After Merge
+        run: ls -l cypress/reports/mochawesome || echo "No merged report found!"
         shell: bash
 
-      - name: Debug Report Existence
-        run: ls -l cypress/reports
+      - name: Extract Test Summary
+        id: test_summary
+        run: |
+          REPORT_JSON="cypress/reports/mochawesome/merged-report.json"
+          if [ -f "$REPORT_JSON" ]; then
+            TOTAL=$(jq '.stats.tests' $REPORT_JSON)
+            PASSED=$(jq '.stats.passes' $REPORT_JSON)
+            FAILED=$(jq '.stats.failures' $REPORT_JSON)
+            SKIPPED=$(jq '.stats.skipped' $REPORT_JSON)
+      
+            # Ensure values are set, fallback to 0 if empty
+            echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
+            echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
+            echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
+            echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
+          else
+            echo "❌ Error: Merged report JSON not found!"
+            exit 1
+          fi
         shell: bash
 
-      - name: Upload test results
-        if: always()
+      - name: Upload Cypress Report
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-test-results
-          path: cypress/reports/mochawesome/
+          name: Cypress-Report
+          path: cypress/reports/mochawesome/merged-report.html
 
-      - name: Debug Report Directory
-        run: Get-ChildItem -Path $PWD -Recurse
-        shell: pwsh
-
-      - name: Find Latest Mochawesome Report
-        run: |
-          $reportDir = "$Env:GITHUB_WORKSPACE/cypress/reports/mochawesome"
-          if (Test-Path $reportDir) {
-            $latestReport = Get-ChildItem -Path $reportDir -Filter "mochawesome_*.html" | 
-                            Sort-Object LastWriteTime -Descending | 
-                            Select-Object -First 1
-            echo "LATEST_REPORT=$($latestReport.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
-          } else {
-            echo "Report directory does not exist: $reportDir"
-            exit 1
-          }
-        shell: pwsh
-      - name: Merge Test Reports
-        run: |
-          npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
-          npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome
-        shell: bash
-        
-      - name: Send Email Notification on Failure
-        if: failure()
+      - name: Send Email Notification
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "❌ Cypress Test Failed - ${{ env.DATE }}"
-          body: "Hi Harry, Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
+          subject: "🔍 Cypress Test Report - ${{ github.run_number }}"
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
-          attachments: "${{ env.LATEST_REPORT }}"
-          # attachments: "cypress/reports/mochawesome/merged-report.html"
-          
-      - name: Send Email Notification on Success
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "✅ Cypress Tests Passed - ${{ env.DATE }}"
-          to: "himanshuagamismtp@gmail.com"
-          from: "GitHub Actions"
-          body: "Hi Harry, All Cypress tests passed successfully! Cypress Test Execution Report:\n\nPlease find the attached Cypress Test Report."
-          attachments: "${{ env.LATEST_REPORT }}"
-          # attachments: "cypress/reports/mochawesome/merged-report.html"
-        
+          body: |
+            📝 **Cypress Test Summary**
+            ----------------------------
+            - 🚀 **Total Tests:** ${{ env.TOTAL_TESTS }}
+            - ✅ **Passed:** ${{ env.PASSED_TESTS }}
+            - ❌ **Failed:** ${{ env.FAILED_TESTS }}
+            - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
+
+            📌 **Artifacts:**
+            - [View HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Download Screenshots & Videos](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+          attachments: "cypress/reports/mochawesome/merged-report.html"
