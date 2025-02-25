@@ -66,7 +66,7 @@ jobs:
       - name: Extract Test Summary
         id: test_summary
         run: |
-          REPORT_JSON="cypress/reports/mochawesome/merged-report.json"
+          REPORT_JSON="cypress\reports\mochawesome\mochawesome.json"
           if [ -f "$REPORT_JSON" ]; then
             TOTAL=$(jq '.stats.tests' $REPORT_JSON)
             PASSED=$(jq '.stats.passes' $REPORT_JSON)
@@ -88,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Cypress-Report
-          path: cypress/reports/mochawesome/merged-report.html
+          path: D:\a\mloflo-cypress\mloflo-cypress\cypress\reports\mochawesome\cypress\reports\mochawesome\merged-report.html
 
       - name: Send Email Notification
         uses: dawidd6/action-send-mail@v3
