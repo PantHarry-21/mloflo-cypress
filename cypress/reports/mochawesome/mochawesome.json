@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-02-18T18:09:28.495Z",
-    "end": "2025-02-18T18:09:50.872Z",
-    "duration": 22377,
+    "start": "2025-02-24T20:26:23.300Z",
+    "end": "2025-02-24T20:26:40.962Z",
+    "duration": 17662,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,49 +18,49 @@
   },
   "results": [
     {
-      "uuid": "f121edae-1ec8-407c-b3f2-3a6cec672024",
+      "uuid": "adda9b59-0176-47b0-926d-7a3f9df168d1",
       "title": "",
-      "fullFile": "e2e\\tests\\login.cy.js",
-      "file": "e2e\\tests\\login.cy.js",
+      "fullFile": "e2e\\tests\\addAffiliations.cy.js",
+      "file": "e2e\\tests\\addAffiliations.cy.js",
       "beforeHooks": [],
       "afterHooks": [],
       "tests": [],
       "suites": [
         {
-          "uuid": "b437c554-a0b1-4d50-9647-2e2ae70a93be",
-          "title": "Login and Navigation Scenarios",
+          "uuid": "03706494-9476-4ed3-a1a5-5b9ab3b34814",
+          "title": "Add Affiliation",
           "fullFile": "",
           "file": "",
           "beforeHooks": [],
           "afterHooks": [],
           "tests": [
             {
-              "title": "Login with valid credentials",
-              "fullTitle": "Login and Navigation Scenarios Login with valid credentials",
+              "title": "Add Affiliation",
+              "fullTitle": "Add Affiliation Add Affiliation",
               "timedOut": null,
-              "duration": 22329,
+              "duration": 17574,
               "state": "passed",
               "speed": "slow",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\");\ncy.url().should(\"include\", \"/dashboard\");",
+              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\"); // Login with valid credentials\ncy.url().should(\"include\", \"/dashboard\"); // Verify successful login\ncy.get('div > .menu-logout > li > a > .uil-wrench').click(); // Navigate to Settings\ncy.url().should(\"include\", \"/settings/status\"); // Verify navigation to Settings page\ncy.get('.mileStone > .mileStone-tab > a:nth-child(13) > .nav-item > .nav-link').click(); // Navigate to Affiliations tab\ncy.url().should(\"include\", \"/settings/affiliations\"); // Verify navigation to Affiliations section\ncy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text').click(); // Click on Add Affiliation button\ncy.wait(1500);\ncy.get('form > #modalBody > .form-row > .form-group > .champ-form__cm-input').should('be.visible').type(faker.person.firstName()); // Enter Affiliation Name\ncy.get('form > .modal-box--dialog__container-footer > .border__top-grey > .position-relative > .button').should('be.enabled').click(); // Click Submit Button\n// Uncomment to validate success message if applicable\n// cy.get('.Snackbar_snackbar__text__1Hx2a')\n//   .should('contain', \"Disposition added successfully\"); // Validate success message",
               "err": {},
-              "uuid": "cdedf5ca-ad81-4480-bc7c-1c7fd16e6a2c",
-              "parentUUID": "b437c554-a0b1-4d50-9647-2e2ae70a93be",
+              "uuid": "6f950e17-93f0-46a8-b993-dc958b173f28",
+              "parentUUID": "03706494-9476-4ed3-a1a5-5b9ab3b34814",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "cdedf5ca-ad81-4480-bc7c-1c7fd16e6a2c"
+            "6f950e17-93f0-46a8-b993-dc958b173f28"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 22329,
+          "duration": 17574,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -95,9 +95,9 @@
     "marge": {
       "options": {
         "reportDir": "cypress/reports/mochawesome",
-        "overwrite": false,
         "html": true,
-        "json": true
+        "json": true,
+        "inline": true
       },
       "version": "6.2.0"
     }
