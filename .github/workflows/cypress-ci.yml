@@ -1,4 +1,4 @@
-name: Mloflo automation testing
+name: Cypress Tests with Detailed Email Report
 
 on:
   push:
@@ -7,91 +7,68 @@ on:
   pull_request:
     branches:
       - main
-  schedule:
-    - cron: '0 2 * * *' # Runs every day at 2 AM UTC
 
 jobs:
   cypress-run:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.13.1
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Verify Cypress binary
-        run: npx cypress verify
-
-      - name: Run Cypress tests
-        run: npx cypress run --browser chrome --reporter mochawesome
-
-      - name: Upload Cypress Videos (Uncompressed)
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-test-videos
-          path: cypress/videos
-          retention-days: 5
-
-      - name: Ensure Report Directory Exists
-        run: mkdir -p cypress/reports/mochawesome
-        shell: bash
+      - name: Run Cypress Tests
+        run: npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/mochawesome,overwrite=false,html=false,json=true
 
       - name: Merge Test Reports
         run: |
-          if ls cypress/reports/mochawesome/*.json 1> /dev/null 2>&1; then
-            npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
-            npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline true
-          else
-            echo "❌ No mochawesome reports found!"
-            exit 1
-          fi
-        shell: bash
+          npm install mochawesome-merge
+          npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
 
       - name: Extract Test Summary
         id: test_summary
-        continue-on-error: true  # 🔹 Prevent failure from stopping email notifications
+        continue-on-error: true
         run: |
           REPORT_JSON="cypress/reports/mochawesome/merged-report.json"
+          
           if [ -f "$REPORT_JSON" ]; then
             TOTAL=$(jq '.stats.tests' $REPORT_JSON)
             PASSED=$(jq '.stats.passes' $REPORT_JSON)
             FAILED=$(jq '.stats.failures' $REPORT_JSON)
             SKIPPED=$(jq '.stats.skipped' $REPORT_JSON)
-
+            
+            SUMMARY=$(jq -r '.results[].suites[].tests[] | "- **" + .title + "**: " + .state + " (⏱ " + (.duration|tostring) + "ms)"' $REPORT_JSON)
+            
             echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
             echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
             echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
             echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
+            echo "TEST_SUMMARY<<EOF" >> $GITHUB_ENV
+            echo "$SUMMARY" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
           else
             echo "❌ Error: Merged report JSON not found!"
           fi
         shell: bash
 
-      - name: Upload Cypress Report
-        if: always()  # 🔹 Ensures report is uploaded even if tests fail
-        uses: actions/upload-artifact@v4
+      - name: Upload Test Artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: Cypress-Report
-          path: cypress/reports/mochawesome/merged-report.html
+          name: cypress-reports
+          path: cypress/reports/mochawesome/
 
-      # ✅ Send Email for Passed Tests
       - name: Send Email Notification on Success
         if: success()
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
+          server_address: smtp.example.com
           server_port: 587
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "✅ Cypress Tests Passed - ${{ github.run_number }}"
-          to: "himanshuagamismtp@gmail.com"
-          from: "GitHub Actions"
+          subject: "✅ Cypress Tests Passed!"
+          to: team@example.com
+          from: ci@example.com
           body: |
             📝 **Cypress Test Summary**
             ----------------------------
@@ -99,25 +76,25 @@ jobs:
             - ✅ **Passed:** ${{ env.PASSED_TESTS }}
             - ❌ **Failed:** ${{ env.FAILED_TESTS }}
             - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
-
+            
+            **📊 Test Breakdown**
+            ${{ env.TEST_SUMMARY }}
+            
             📌 **Artifacts:**
             - [View HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
             - [Download Screenshots & Videos](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
-          attachments: "cypress/reports/mochawesome/merged-report.html"
-
-      # ❌ Send Email for Failed Tests
       - name: Send Email Notification on Failure
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
+          server_address: smtp.example.com
           server_port: 587
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "❌ Cypress Tests Failed - ${{ github.run_number }}"
-          to: "himanshuagamismtp@gmail.com"
-          from: "GitHub Actions"
+          subject: "❌ Cypress Tests Failed!"
+          to: team@example.com
+          from: ci@example.com
           body: |
             📝 **Cypress Test Summary**
             ----------------------------
@@ -125,11 +102,10 @@ jobs:
             - ✅ **Passed:** ${{ env.PASSED_TESTS }}
             - ❌ **Failed:** ${{ env.FAILED_TESTS }}
             - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
-
-            ⚠️ Some tests have failed. Please check the report below.
-
+            
+            **📊 Test Breakdown**
+            ${{ env.TEST_SUMMARY }}
+            
             📌 **Artifacts:**
             - [View HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
             - [Download Screenshots & Videos](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-          attachments: "cypress/reports/mochawesome/merged-report.html"
