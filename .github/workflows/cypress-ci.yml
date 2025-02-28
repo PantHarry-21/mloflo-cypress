@@ -28,8 +28,9 @@ jobs:
       - name: Verify Cypress binary
         run: npx cypress verify
 
-      - name: Run Cypress tests
-        run: npx cypress run --browser chrome --reporter mochawesome
+      - name: Run Cypress Tests
+        run: |
+          npx cypress run --reporter json --reporter-options "output=results.json"
 
       - name: Upload Cypress Videos (Uncompressed)
         uses: actions/upload-artifact@v4  # ✅ Updated to v4
@@ -94,17 +95,15 @@ jobs:
           from: "GitHub Actions"
           body: |
             📝 **Cypress Test Summary**
-            ----------------------------
-            - 🚀 **Total Tests:** ${{ env.TOTAL_TESTS }}
-            - ✅ **Passed:** ${{ env.PASSED_TESTS }}
-            - ❌ **Failed:** ${{ env.FAILED_TESTS }}
-            - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
+            -------------------------------
+            - 🚀 **Total Tests:** ${{ env.TOTAL }}
+            - ✅ **Passed:** ${{ env.PASSED }}
+            - ❌ **Failed:** ${{ env.FAILED }}
+            - ⏭️ **Skipped:** ${{ env.SKIPPED }}
 
             📌 **Artifacts:**
-            - [View HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            - [Download Screenshots & Videos](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-          attachments: "cypress/reports/mochawesome/merged-report.html"
+            - [View HTML Report](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Download Screenshots & Videos](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
       # ❌ Send Email for Failed Tests
       - name: Send Email Notification on Failure
