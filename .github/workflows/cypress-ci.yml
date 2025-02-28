@@ -36,15 +36,10 @@ jobs:
         with:
           name: cypress-test-videos
           path: cypress/videos
-          retention-days: 5  # ✅ Keeps videos for 5 days (optional)
-      
+          retention-days: 5
 
       - name: Ensure Report Directory Exists
         run: mkdir -p cypress/reports/mochawesome
-        shell: bash
-
-      - name: Debug Available Report Files
-        run: ls -l cypress/reports/mochawesome || echo "No reports found!"
         shell: bash
 
       - name: Merge Test Reports
@@ -57,47 +52,44 @@ jobs:
             exit 1
           fi
         shell: bash
-      
-
-      - name: Debug Report Directory After Merge
-        run: ls -l cypress/reports/mochawesome || echo "No merged report found!"
-        shell: bash
 
       - name: Extract Test Summary
         id: test_summary
+        continue-on-error: true  # 🔹 Prevent failure from stopping email notifications
         run: |
-          REPORT_JSON="cypress\reports\mochawesome\mochawesome.json"
+          REPORT_JSON="cypress/reports/mochawesome/merged-report.json"
           if [ -f "$REPORT_JSON" ]; then
             TOTAL=$(jq '.stats.tests' $REPORT_JSON)
             PASSED=$(jq '.stats.passes' $REPORT_JSON)
             FAILED=$(jq '.stats.failures' $REPORT_JSON)
             SKIPPED=$(jq '.stats.skipped' $REPORT_JSON)
-      
-            # Ensure values are set, fallback to 0 if empty
+
             echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
             echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
             echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
             echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
           else
             echo "❌ Error: Merged report JSON not found!"
-            exit 1
           fi
         shell: bash
 
       - name: Upload Cypress Report
+        if: always()  # 🔹 Ensures report is uploaded even if tests fail
         uses: actions/upload-artifact@v4
         with:
           name: Cypress-Report
-          path: D:\a\mloflo-cypress\mloflo-cypress\cypress\reports\mochawesome\cypress\reports\mochawesome\merged-report.html
+          path: cypress/reports/mochawesome/merged-report.html
 
-      - name: Send Email Notification
+      # ✅ Send Email for Passed Tests
+      - name: Send Email Notification on Success
+        if: success()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "🔍 Cypress Test Report - ${{ github.run_number }}"
+          subject: "✅ Cypress Tests Passed - ${{ github.run_number }}"
           to: "himanshuagamismtp@gmail.com"
           from: "GitHub Actions"
           body: |
@@ -107,6 +99,34 @@ jobs:
             - ✅ **Passed:** ${{ env.PASSED_TESTS }}
             - ❌ **Failed:** ${{ env.FAILED_TESTS }}
             - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
+
+            📌 **Artifacts:**
+            - [View HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Download Screenshots & Videos](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+          attachments: "cypress/reports/mochawesome/merged-report.html"
+
+      # ❌ Send Email for Failed Tests
+      - name: Send Email Notification on Failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "❌ Cypress Tests Failed - ${{ github.run_number }}"
+          to: "himanshuagamismtp@gmail.com"
+          from: "GitHub Actions"
+          body: |
+            📝 **Cypress Test Summary**
+            ----------------------------
+            - 🚀 **Total Tests:** ${{ env.TOTAL_TESTS }}
+            - ✅ **Passed:** ${{ env.PASSED_TESTS }}
+            - ❌ **Failed:** ${{ env.FAILED_TESTS }}
+            - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
+
+            ⚠️ Some tests have failed. Please check the report below.
 
             📌 **Artifacts:**
             - [View HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
