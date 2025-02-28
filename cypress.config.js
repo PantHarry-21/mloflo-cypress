@@ -6,15 +6,16 @@ module.exports = defineConfig({
 
   reporterOptions: {
     reportDir: "cypress/reports/mochawesome",
-    overwrite: false,
-    html: true,
-    json: true,
+    html: true,  // ✅ Ensures HTML reports are generated
+    json: true,  // ✅ Ensures JSON reports are available for merging
+    inline: true // ✅ Embeds CSS/JS inside the HTML report
   },
 
   video: true, // Enable video recording globally
   videoCompression: 32, // Reduce video file size
   videosFolder: "cypress/videos", // Default folder
   screenshotOnRunFailure: true, // Take screenshots on failures
+  videoCompression: false,  // ✅ Disables video compression
 
   e2e: {
     setupNodeEvents(on, config) {
@@ -31,6 +32,8 @@ module.exports = defineConfig({
       "e2e/tests/resetPassword.cy.js",
       "e2e/tests/addBorrowerContact.cy.js",
       "e2e/tests/addBorrowerLead.cy.js",
+      "e2e/tests/addEmailTemplateInMarketing.cy.js",
+      "e2e/tests/addSmsTemplateInMarketing.cy.js",
       "e2e/tests/addPartnerContact.cy.js",
       "e2e/tests/addPartnerLead.cy.js",
       "e2e/tests/addVipPartner.cy.js",
@@ -38,6 +41,7 @@ module.exports = defineConfig({
       "e2e/tests/addSource.cy.js",
       "e2e/tests/addDisposition.cy.js",
       "e2e/tests/addMarketingFolder.cy.js",
+      "e2e/tests/addMarketingCampaign.cy.js",
       "e2e/tests/addTags.cy.js",
       "e2e/tests/addCustomLink.cy.js",
       "e2e/tests/addEventHeader.cy.js",

@@ -1,7 +1,18 @@
-cy.get('div > .menu-logout > li:nth-child(9) > a > .text__size12').click()
- 
-    cy.get('.position-relative > .w-100 > .two > .text-center > .cstm-grey-brand:nth-child(1)').click()
-    cy.get('.modal-box--dialog__container > form > #modalBody > .mb-2 > .input-header').type('folder')
-    cy.get('#modalBody > .mb-2 > .d-flex > .select-color-border:nth-child(8) > .cursor-pointer').click()
-    cy.get('form > .modal-box--dialog__container-footer > .d-flex > .position-relative > .button').click()
-    cy.get('#mloflo_body > #root > .Snackbar_snackbar-wrapper__ocbPJ > .Snackbar_snackbar__GsYZl > .Snackbar_snackbar__text__1Hx2a').click()
+describe('test_name', function() {
+
+   it('what_it_does', function() {
+  
+      cy.viewport(1280, 631)
+   
+      cy.visit('https://uat.mloflo.com/loan-officer/marketing/personal/template-library')
+   
+      cy.get('.champ-form__cm-bg > .ml-4 > .pr-4 > .d-flex:nth-child(2) > .d-flex').click()
+      cy.get('.d-flex > .d-flex > div > .mr-2 > .button').click()
+      cy.get('.page-loader > form > .px-2 > .input-group1:nth-child(1) > .champ-form__cm-input').click()
+      cy.get('.page-loader > form > .px-2 > .input-group1:nth-child(1) > .champ-form__cm-input').type('Title')
+      cy.get('.page-loader > form > .d-flex > .position-relative > .button').click()
+   
+   })
+  
+  })
+  
