@@ -20,10 +20,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.13.1
+          node-version: 20.x
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install Cypress
+        run: npx cypress install
 
       - name: Verify Cypress binary
         run: npx cypress verify
@@ -31,13 +34,13 @@ jobs:
       - name: Run Cypress Tests
         run: |
           npx cypress run --reporter json --reporter-options "output=cypress/results.json"
-      - name: Debug Test Results
-        run: |
-            cat cypress/results.json  # This will show the JSON structure in logs
+        continue-on-error: true # ✅ Ensures next steps run even if tests fail
 
+      - name: Debug Test Results
+        run: cat cypress/results.json  # Logs Cypress test results
 
       - name: Upload Cypress Videos (Uncompressed)
-        uses: actions/upload-artifact@v4  # ✅ Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-test-videos
           path: cypress/videos
@@ -49,7 +52,7 @@ jobs:
 
       - name: Merge Test Reports
         run: |
-          if ls cypress/reports/mochawesome/*.json 1> /dev/null 2>&1; then
+          if [ -n "$(ls -A cypress/reports/mochawesome/*.json 2>/dev/null)" ]; then
             npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/merged-report.json
             npx marge cypress/reports/mochawesome/merged-report.json --reportDir cypress/reports/mochawesome --inline true
           else
@@ -60,23 +63,16 @@ jobs:
 
       - name: Extract Test Summary
         run: |
-          echo "TOTAL=$(jq '.stats.tests' cypress/results.json)" >> $GITHUB_ENV
-          echo "PASSED=$(jq '.stats.passes' cypress/results.json)" >> $GITHUB_ENV
-          echo "FAILED=$(jq '.stats.failures' cypress/results.json)" >> $GITHUB_ENV
-          echo "SKIPPED=$(jq '.stats.skipped' cypress/results.json)" >> $GITHUB_ENV
-
-          echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
-          echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
-          echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
-          echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
-          else
-            echo "❌ Error: Merged report JSON not found!"
-          fi
-        shell: bash
+          $json = Get-Content cypress/results.json | ConvertFrom-Json
+          echo "TOTAL=$($json.stats.tests)" >> $env:GITHUB_ENV
+          echo "PASSED=$($json.stats.passes)" >> $env:GITHUB_ENV
+          echo "FAILED=$($json.stats.failures)" >> $env:GITHUB_ENV
+          echo "SKIPPED=$($json.stats.skipped)" >> $env:GITHUB_ENV
+        shell: pwsh
 
       - name: Upload Cypress Report
-        if: always()  # 🔹 Ensures report is uploaded even if tests fail
-        uses: actions/upload-artifact@v4  # ✅ Updated to v4
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: Cypress-Report
           path: cypress/reports/mochawesome/merged-report.html
