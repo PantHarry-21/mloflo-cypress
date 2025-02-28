@@ -30,7 +30,11 @@ jobs:
 
       - name: Run Cypress Tests
         run: |
-          npx cypress run --reporter json --reporter-options "output=results.json"
+          npx cypress run --reporter json --reporter-options "output=cypress/results.json"
+      - name: Debug Test Results
+        run: |
+            cat cypress/results.json  # This will show the JSON structure in logs
+
 
       - name: Upload Cypress Videos (Uncompressed)
         uses: actions/upload-artifact@v4  # ✅ Updated to v4
@@ -55,20 +59,16 @@ jobs:
         shell: bash
 
       - name: Extract Test Summary
-        id: test_summary
-        continue-on-error: true  # 🔹 Prevent failure from stopping email notifications
         run: |
-          REPORT_JSON="cypress/reports/mochawesome/merged-report.json"
-          if [ -f "$REPORT_JSON" ]; then
-            TOTAL=$(jq '.stats.tests' $REPORT_JSON)
-            PASSED=$(jq '.stats.passes' $REPORT_JSON)
-            FAILED=$(jq '.stats.failures' $REPORT_JSON)
-            SKIPPED=$(jq '.stats.skipped' $REPORT_JSON)
+          echo "TOTAL=$(jq '.stats.tests' cypress/results.json)" >> $GITHUB_ENV
+          echo "PASSED=$(jq '.stats.passes' cypress/results.json)" >> $GITHUB_ENV
+          echo "FAILED=$(jq '.stats.failures' cypress/results.json)" >> $GITHUB_ENV
+          echo "SKIPPED=$(jq '.stats.skipped' cypress/results.json)" >> $GITHUB_ENV
 
-            echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
-            echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
-            echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
-            echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
+          echo "TOTAL_TESTS=${TOTAL:-0}" >> $GITHUB_ENV
+          echo "PASSED_TESTS=${PASSED:-0}" >> $GITHUB_ENV
+          echo "FAILED_TESTS=${FAILED:-0}" >> $GITHUB_ENV
+          echo "SKIPPED_TESTS=${SKIPPED:-0}" >> $GITHUB_ENV
           else
             echo "❌ Error: Merged report JSON not found!"
           fi
@@ -120,10 +120,10 @@ jobs:
           body: |
             📝 **Cypress Test Summary**
             ----------------------------
-            - 🚀 **Total Tests:** ${{ env.TOTAL_TESTS }}
-            - ✅ **Passed:** ${{ env.PASSED_TESTS }}
-            - ❌ **Failed:** ${{ env.FAILED_TESTS }}
-            - ⏭ **Skipped:** ${{ env.SKIPPED_TESTS }}
+            - 🚀 **Total Tests:** ${{ env.TOTAL }}
+            - ✅ **Passed:** ${{ env.PASSED }}
+            - ❌ **Failed:** ${{ env.FAILED }}
+            - ⏭️ **Skipped:** ${{ env.SKIPPED }}
 
             ⚠️ Some tests have failed. Please check the report below.
 
