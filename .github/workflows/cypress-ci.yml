@@ -63,19 +63,21 @@ jobs:
 
       - name: Extract Test Summary
         run: |
-          $json = Get-Content cypress/results.json | ConvertFrom-Json
-          echo "TOTAL=$($json.stats.tests)" >> $env:GITHUB_ENV
-          echo "PASSED=$($json.stats.passes)" >> $env:GITHUB_ENV
-          echo "FAILED=$($json.stats.failures)" >> $env:GITHUB_ENV
-          echo "SKIPPED=$($json.stats.skipped)" >> $env:GITHUB_ENV
-        shell: pwsh
+          if [ -f "cypress/results.json" ]; then
+            TOTAL=$(jq '.stats.tests' cypress/results.json)
+            PASSED=$(jq '.stats.passes' cypress/results.json)
+            FAILED=$(jq '.stats.failures' cypress/results.json)
+            SKIPPED=$(jq '.stats.skipped' cypress/results.json)
 
-      - name: Upload Cypress Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Cypress-Report
-          path: cypress/reports/mochawesome/merged-report.html
+            echo "TOTAL_TESTS=$TOTAL" >> $GITHUB_ENV
+            echo "PASSED_TESTS=$PASSED" >> $GITHUB_ENV
+            echo "FAILED_TESTS=$FAILED" >> $GITHUB_ENV
+            echo "SKIPPED_TESTS=$SKIPPED" >> $GITHUB_ENV
+          else
+            echo "❌ Error: cypress/results.json not found!"
+            exit 1
+          fi
+        shell: bash
 
       # ✅ Send Email for Passed Tests
       - name: Send Email Notification on Success
