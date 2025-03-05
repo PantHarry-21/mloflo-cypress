@@ -33,8 +33,7 @@ jobs:
 
       - name: Run Cypress Tests
         run: |
-          npx cypress run --reporter json --reporter-options "output=cypress/results.json"
-        continue-on-error: true # ✅ Ensures next steps run even if tests fail
+          npx cypress run --reporter=json --reporter-options "output=cypress/results.json" # ✅ Ensures next steps run even if tests fail
 
       - name: Debug Test Results
         run: cat cypress/results.json  # Logs Cypress test results
@@ -50,6 +49,9 @@ jobs:
         run: mkdir -p cypress/reports/mochawesome
         shell: bash
 
+      - name: Debug Cypress Results Folder
+        run: ls -R cypress/
+
       - name: Merge Test Reports
         run: |
           if [ -n "$(ls -A cypress/reports/mochawesome/*.json 2>/dev/null)" ]; then
@@ -64,6 +66,8 @@ jobs:
       - name: Extract Test Summary
         run: |
           if [ -f "cypress/results.json" ]; then
+            echo "✅ Cypress test report found."
+            cat cypress/results.json
             TOTAL=$(jq '.stats.tests' cypress/results.json)
             PASSED=$(jq '.stats.passes' cypress/results.json)
             FAILED=$(jq '.stats.failures' cypress/results.json)
@@ -75,9 +79,9 @@ jobs:
             echo "SKIPPED_TESTS=$SKIPPED" >> $GITHUB_ENV
           else
             echo "❌ Error: cypress/results.json not found!"
+            ls -R cypress/
             exit 1
           fi
-        shell: bash
 
       # ✅ Send Email for Passed Tests
       - name: Send Email Notification on Success
