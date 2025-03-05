@@ -22,7 +22,7 @@ describe("Add partner from header", () => {
         cy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click()
         cy.get('.border__bottom-dark > .form-group > .froala-mail-editor > #froala-editor > .position-relative:nth-child(1)').click()
         cy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click().type(faker.lorem.paragraph())
-        cy.get('.position-relative > .button').click()
+        cy.get('.border__top-grey > .position-relative > .button').click()
    
     })
 

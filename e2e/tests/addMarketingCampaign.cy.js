@@ -36,44 +36,44 @@ describe("Add Campaign to Existing or New Folder", () => {
 
         // ✅ Check if the folder exists
         cy.get("body").then(($body) => {
-    if ($body.find('[data-id="0"] > .position-relative > .two > .w-100').text().includes("Borrower status campaigns")) {
-        cy.log("📁 Folder exists. Clicking on it.");
-        cy.contains('.drip-campaign', "Borrower status campaigns").click();
-    } else {
-        cy.log("🚀 Folder does not exist. Creating a new one.");
-        
-        // ✅ Step 2: Click "Add Folder" button
-        cy.get('.w-100 > .two').click()
-        
-        // ✅ Step 3: Type the folder name
-        const folderName = (faker.person.firstName())
-        cy.get('.modal-box--dialog__container > form > #modalBody > .mb-2 > .input-header').type(folderName)
-        
-        // ✅ Step 4: Select Folder Color (Assuming the 8th color is standard)
-        cy.get('#modalBody > .mb-2 > .d-flex > .select-color-border:nth-child(8) > .cursor-pointer').click();
-        
-        // ✅ Step 5: Click "Create" button
-        cy.get('form > .modal-box--dialog__container-footer > .d-flex > .position-relative > .button').click();
-        
-        // ✅ Step 6: Verify folder creation
-        // const folder = folderName
-        // cy.get(folder).click()
-        cy.get('.drip-campaign').contains(folderName).click()
-        // ✅ Step 7: Click on the newly created folder
-        // cy.get(`.drip-campaign"= ${folderName}"]`).click();
+            if ($body.find('[data-id="0"] > .position-relative > .two > .w-100').text().includes("Borrower status campaigns")) {
+                cy.log("📁 Folder exists. Clicking on it.");
+                cy.contains('.drip-campaign', "Borrower status campaigns").click();
+            } else {
+                cy.log("🚀 Folder does not exist. Creating a new one.");
+
+                // ✅ Step 2: Click "Add Folder" button
+                cy.get('.w-100 > .two').click()
+
+                // ✅ Step 3: Type the folder name
+                const folderName = (faker.person.firstName())
+                cy.get('.modal-box--dialog__container > form > #modalBody > .mb-2 > .input-header').type(folderName)
+
+                // ✅ Step 4: Select Folder Color (Assuming the 8th color is standard)
+                cy.get('#modalBody > .mb-2 > .d-flex > .select-color-border:nth-child(8) > .cursor-pointer').click();
+
+                // ✅ Step 5: Click "Create" button
+                cy.get('form > .modal-box--dialog__container-footer > .d-flex > .position-relative > .button').click();
+
+                // ✅ Step 6: Verify folder creation
+                // const folder = folderName
+                // cy.get(folder).click()
+                cy.get('.drip-campaign').contains(folderName).click()
+                // ✅ Step 7: Click on the newly created folder
+                // cy.get(`.drip-campaign"= ${folderName}"]`).click();
             }
         });
 
         // ✅ Step 8: Click "Add Campaign" button
         cy.get('.row > .col-lg-6 > .d-flex > .mr-2 > .text__size12').click();
-        
+
         // ✅ Step 9: Enter Campaign Name
         cy.get('.page-loader > #modalBody > .row > .form-group > .champ-form__cm-input').type(campaignName);
-        
+
         // ✅ Step 10: Select Campaign Type
         cy.get('.d-flex > .flex7 > .form-group > .selectDiv > .champ-form__cm-input').select('Borrower');
         cy.get('.d-flex > .flex7 > .form-group:nth-child(2) > .selectDiv > .champ-form__cm-input').select('BN');
-        
+
         cy.get(':nth-child(3) > :nth-child(2) > .selectDiv > .p-0 > .select__control > .select__value-container').type('All')
         cy.realPress("Tab");
 
@@ -83,14 +83,14 @@ describe("Add Campaign to Existing or New Folder", () => {
 
         // ✅ Step 12: Enable Campaign Toggle
         cy.get(':nth-child(7) > :nth-child(2) > label > .switch_1').click();
-        
+
         // ✅ Step 13: Set Campaign Start & End Time
         cy.get('div > .from-row > .form-group:nth-child(1) > .datepicker-time > input').type('00:01');
         cy.get('div > .from-row > .form-group > .datepicker-time > #appt-time').type('23:59');
-        
+
         // ✅ Step 14: Save Campaign
         cy.get('.page-loader > .modal-box--dialog__container-footer > .d-flex > .position-relative > .button').click();
-        
+
         cy.get('#mloflo_body > #root > .Snackbar_snackbar-wrapper__ocbPJ > .Snackbar_snackbar__GsYZl > .Snackbar_snackbar__close__NCHgT').click()
         cy.get('div > .dropdown-custom > .dropdown-toggle > .button > .text__size18').click()
         cy.get('div > .dropdown-custom > .dropdown-custom-menu > .dropdown-custom-item:nth-child(1) > span').click()
