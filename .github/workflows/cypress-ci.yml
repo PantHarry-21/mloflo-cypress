@@ -33,10 +33,10 @@ jobs:
 
       - name: Run Cypress Tests
         run: |
-          npx cypress run --reporter=json --reporter-options "output=cypress/results.json" # ✅ Ensures next steps run even if tests fail
+          npx cypress run --reporter=json --reporter-options "output=cypress/results.json"
 
-      - name: Debug Test Results
-        run: cat cypress/results.json  # Logs Cypress test results
+      - name: Debug Cypress Results
+        run: cat cypress/results.json || echo "❌ Cypress results file not found!"
 
       - name: Upload Cypress Videos (Uncompressed)
         uses: actions/upload-artifact@v4
@@ -63,27 +63,31 @@ jobs:
           fi
         shell: bash
 
+      - name: Install jq (for JSON processing)
+        run: sudo apt-get install jq -y
+        shell: bash
+
       - name: Extract Test Summary
         run: |
           if [ -f "cypress/results.json" ]; then
             echo "✅ Cypress test report found."
             cat cypress/results.json
-            TOTAL=$(jq '.stats.tests' cypress/results.json)
-            PASSED=$(jq '.stats.passes' cypress/results.json)
-            FAILED=$(jq '.stats.failures' cypress/results.json)
-            SKIPPED=$(jq '.stats.skipped' cypress/results.json)
+            TOTAL_TESTS=$(jq '.stats.tests' cypress/results.json)
+            PASSED_TESTS=$(jq '.stats.passes' cypress/results.json)
+            FAILED_TESTS=$(jq '.stats.failures' cypress/results.json)
+            SKIPPED_TESTS=$(jq '.stats.skipped' cypress/results.json)
 
-            echo "TOTAL_TESTS=$TOTAL" >> $GITHUB_ENV
-            echo "PASSED_TESTS=$PASSED" >> $GITHUB_ENV
-            echo "FAILED_TESTS=$FAILED" >> $GITHUB_ENV
-            echo "SKIPPED_TESTS=$SKIPPED" >> $GITHUB_ENV
+            echo "TOTAL_TESTS=$TOTAL_TESTS" >> $GITHUB_ENV
+            echo "PASSED_TESTS=$PASSED_TESTS" >> $GITHUB_ENV
+            echo "FAILED_TESTS=$FAILED_TESTS" >> $GITHUB_ENV
+            echo "SKIPPED_TESTS=$SKIPPED_TESTS" >> $GITHUB_ENV
           else
             echo "❌ Error: cypress/results.json not found!"
             ls -R cypress/
             exit 1
           fi
+        shell: bash
 
-      # ✅ Send Email for Passed Tests
       - name: Send Email Notification on Success
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -98,16 +102,15 @@ jobs:
           body: |
             📝 **Cypress Test Summary**
             -------------------------------
-            - 🚀 **Total Tests:** ${{ env.TOTAL }}
-            - ✅ **Passed:** ${{ env.PASSED }}
-            - ❌ **Failed:** ${{ env.FAILED }}
-            - ⏭️ **Skipped:** ${{ env.SKIPPED }}
+            - 🚀 **Total Tests:** ${{ env.TOTAL_TESTS }}
+            - ✅ **Passed:** ${{ env.PASSED_TESTS }}
+            - ❌ **Failed:** ${{ env.FAILED_TESTS }}
+            - ⏭️ **Skipped:** ${{ env.SKIPPED_TESTS }}
 
             📌 **Artifacts:**
             - [View HTML Report](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             - [Download Screenshots & Videos](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
-      # ❌ Send Email for Failed Tests
       - name: Send Email Notification on Failure
         if: failure()
         uses: dawidd6/action-send-mail@v3
@@ -122,10 +125,10 @@ jobs:
           body: |
             📝 **Cypress Test Summary**
             ----------------------------
-            - 🚀 **Total Tests:** ${{ env.TOTAL }}
-            - ✅ **Passed:** ${{ env.PASSED }}
-            - ❌ **Failed:** ${{ env.FAILED }}
-            - ⏭️ **Skipped:** ${{ env.SKIPPED }}
+            - 🚀 **Total Tests:** ${{ env.TOTAL_TESTS }}
+            - ✅ **Passed:** ${{ env.PASSED_TESTS }}
+            - ❌ **Failed:** ${{ env.FAILED_TESTS }}
+            - ⏭️ **Skipped:** ${{ env.SKIPPED_TESTS }}
 
             ⚠️ Some tests have failed. Please check the report below.
 
