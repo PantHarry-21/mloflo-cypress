@@ -9,11 +9,11 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add partner from header", () => {
     beforeEach(() => {
-        cy.visit("https://stage.mloflo.com/"); // Navigate to application URL
+        cy.visit("https://uat.mloflo.com/"); // Navigate to application URL
     });
 
     it("Add partner from header", () => {
-        cy.login("iyer@mailinator.com", "Iyer@1234"); // Login with valid credentials
+        cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Login with valid credentials
         cy.url().should("include", "/dashboard"); // Verify successful login
 
         cy.get('div > .dropdown-custom > .dropdown-toggle > .bg-transparent > .uil-plus').click()
