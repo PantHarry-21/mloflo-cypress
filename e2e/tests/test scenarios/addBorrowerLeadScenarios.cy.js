@@ -2,7 +2,7 @@ const { faker } = require('@faker-js/faker');
 
 describe('Login and Navigation Tests', () => {
      beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/");
+        cy.visit("https://app.mloflo.com/");
         cy.wait(2000)
 
         cy.get("input[name='email']").type("himanshupant.qa@gmail.com")

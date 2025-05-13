@@ -14,7 +14,7 @@ Cypress.Commands.add("logout", () => {
 
 describe("Logout Functionality - Optimized", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/"); // Navigate to login page
+        cy.visit("https://app.mloflo.com/"); // Navigate to login page
         cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Perform login
     });
 

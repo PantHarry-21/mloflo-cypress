@@ -9,11 +9,11 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add partner from header", () => {
     beforeEach(() => {
-        cy.visit("https://stage.mloflo.com/"); // Navigate to application URL
+        cy.visit("https://app.mloflo.com/"); // Navigate to application URL
     });
 
     it("Add partner from header", () => {
-        cy.login("iyer@mailinator.com", "Iyer@1234"); // Login with valid credentials
+        cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Login with valid credentials
         cy.url().should("include", "/dashboard"); // Verify successful login
 
         cy.get('div > .dropdown-custom > .dropdown-toggle > .bg-transparent > .uil-plus').click()
@@ -22,7 +22,7 @@ describe("Add partner from header", () => {
         cy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click()
         cy.get('.border__bottom-dark > .form-group > .froala-mail-editor > #froala-editor > .position-relative:nth-child(1)').click()
         cy.get('#froala-editor > .position-relative > .fr-box > .fr-wrapper > .fr-element').click().type(faker.lorem.paragraph())
-        cy.get('.position-relative > .button').click()
+        cy.get('.border__top-grey > .position-relative > .button').click()
    
     })
 

@@ -8,7 +8,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Login Functionality - Optimized", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/"); // Navigate to login page
+        cy.visit("https://app.mloflo.com/"); // Navigate to login page
     });
 
     it("Logs in with valid credentials", () => {

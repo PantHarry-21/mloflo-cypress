@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2025-02-18T18:09:28.495Z",
-    "end": "2025-02-18T18:09:50.872Z",
-    "duration": 22377,
+    "failures": 1,
+    "start": "2025-05-13T13:45:29.909Z",
+    "end": "2025-05-13T13:46:18.613Z",
+    "duration": 48704,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,49 +18,53 @@
   },
   "results": [
     {
-      "uuid": "f121edae-1ec8-407c-b3f2-3a6cec672024",
+      "uuid": "07728300-1036-43b1-a1d7-9d1c121020d1",
       "title": "",
-      "fullFile": "e2e\\tests\\login.cy.js",
-      "file": "e2e\\tests\\login.cy.js",
+      "fullFile": "e2e\\tests\\addAffiliations.cy.js",
+      "file": "e2e\\tests\\addAffiliations.cy.js",
       "beforeHooks": [],
       "afterHooks": [],
       "tests": [],
       "suites": [
         {
-          "uuid": "b437c554-a0b1-4d50-9647-2e2ae70a93be",
-          "title": "Login and Navigation Scenarios",
+          "uuid": "1ebb8a96-44a8-4578-bde1-78a72dc3c2a0",
+          "title": "Add Affiliation",
           "fullFile": "",
           "file": "",
           "beforeHooks": [],
           "afterHooks": [],
           "tests": [
             {
-              "title": "Login with valid credentials",
-              "fullTitle": "Login and Navigation Scenarios Login with valid credentials",
+              "title": "Add Affiliation",
+              "fullTitle": "Add Affiliation Add Affiliation",
               "timedOut": null,
-              "duration": 22329,
-              "state": "passed",
-              "speed": "slow",
-              "pass": true,
-              "fail": false,
+              "duration": 40148,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\");\ncy.url().should(\"include\", \"/dashboard\");",
-              "err": {},
-              "uuid": "cdedf5ca-ad81-4480-bc7c-1c7fd16e6a2c",
-              "parentUUID": "b437c554-a0b1-4d50-9647-2e2ae70a93be",
+              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\"); // Login with valid credentials\ncy.url().should(\"include\", \"/dashboard\"); // Verify successful login\ncy.get('div > .menu-logout > li > a > .uil-wrench').click(); // Navigate to Settings\ncy.url().should(\"include\", \"/settings/status\"); // Verify navigation to Settings page\ncy.get('.mileStone > .mileStone-tab > a:nth-child(13) > .nav-item > .nav-link').click(); // Navigate to Affiliations tab\ncy.url().should(\"include\", \"/settings/affiliations\"); // Verify navigation to Affiliations section\ncy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text').click(); // Click on Add Affiliation button\ncy.wait(1500);\ncy.reload();\ncy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text').click();\ncy.get('form > #modalBody > .form-row > .form-group > .champ-form__cm-input').should('be.visible').type(faker.person.firstName()); // Enter Affiliation Name\ncy.get('form > .modal-box--dialog__container-footer > .border__top-grey > .position-relative > .button').should('be.enabled').click(); // Click Submit Button\n// Uncomment to validate success message if applicable\n// cy.get('.Snackbar_snackbar__text__1Hx2a')\n//   .should('contain', \"Disposition added successfully\"); // Validate success message",
+              "err": {
+                "message": "CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:\n\n`<span class=\"cstm-dark-text \">Affilia...</span>`\n\nis being covered by another element:\n\n`<h4 data-uf-element=\"title\" class=\"uf-umjfg-title\">Affilia...</h4>`\n\nFix this problem, or use {force: true} to disable error checking.\n\nhttps://on.cypress.io/element-cannot-be-interacted-with",
+                "estack": "CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:\n\n`<span class=\"cstm-dark-text \">Affilia...</span>`\n\nis being covered by another element:\n\n`<h4 data-uf-element=\"title\" class=\"uf-umjfg-title\">Affilia...</h4>`\n\nFix this problem, or use {force: true} to disable error checking.\n\nhttps://on.cypress.io/element-cannot-be-interacted-with\n    at ensureIsDescendent (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112011:68)\n    at ensureDescendents (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112062:5)\n    at ensureDescendentsAndScroll (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112068:14)\n    at ensureElIsNotCovered (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112199:5)\n    at runAllChecks (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112398:52)\n    at retryActionability (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112435:16)\n    at tryCatcher (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://app.mloflo.com/__cypress/runner/cypress_runner.js:4285:29)\n    at whenStable (https://app.mloflo.com/__cypress/runner/cypress_runner.js:144478:68)\n    at <unknown> (https://app.mloflo.com/__cypress/runner/cypress_runner.js:144419:14)\n    at tryCatcher (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1671:18)\n    at Promise._fulfill (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1615:18)\n    at <unknown> (https://app.mloflo.com/__cypress/runner/cypress_runner.js:5420:46)",
+                "diff": null
+              },
+              "uuid": "97e03691-a492-4aee-bd71-c5617e7ece8d",
+              "parentUUID": "1ebb8a96-44a8-4578-bde1-78a72dc3c2a0",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "cdedf5ca-ad81-4480-bc7c-1c7fd16e6a2c"
+          "passes": [],
+          "failures": [
+            "97e03691-a492-4aee-bd71-c5617e7ece8d"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 22329,
+          "duration": 40148,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -95,9 +99,9 @@
     "marge": {
       "options": {
         "reportDir": "cypress/reports/mochawesome",
-        "overwrite": false,
         "html": true,
-        "json": true
+        "json": true,
+        "inline": true
       },
       "version": "6.2.0"
     }
