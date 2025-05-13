@@ -9,7 +9,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Login and Navigation Scenarios", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/");
+        cy.visit("https://app.mloflo.com/");
     });
 
     it("Login with Non-Registered Email", () => {

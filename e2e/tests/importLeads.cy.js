@@ -10,7 +10,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add Partner from Header - Optimized", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/"); // Visit application URL
+        cy.visit("https://app.mloflo.com/"); // Visit application URL
         cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Perform login
     });
 

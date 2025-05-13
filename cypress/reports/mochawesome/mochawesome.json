@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2025-02-24T20:26:23.300Z",
-    "end": "2025-02-24T20:26:40.962Z",
-    "duration": 17662,
+    "failures": 1,
+    "start": "2025-05-12T14:28:16.546Z",
+    "end": "2025-05-12T14:28:48.293Z",
+    "duration": 31747,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "adda9b59-0176-47b0-926d-7a3f9df168d1",
+      "uuid": "0fde3953-c3a6-4b61-b2b0-a608ef53f827",
       "title": "",
       "fullFile": "e2e\\tests\\addAffiliations.cy.js",
       "file": "e2e\\tests\\addAffiliations.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "03706494-9476-4ed3-a1a5-5b9ab3b34814",
+          "uuid": "20e81a5d-58dd-4de6-aa1e-167278dad938",
           "title": "Add Affiliation",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "Add Affiliation",
               "fullTitle": "Add Affiliation Add Affiliation",
               "timedOut": null,
-              "duration": 17574,
-              "state": "passed",
-              "speed": "slow",
-              "pass": true,
-              "fail": false,
+              "duration": 27361,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\"); // Login with valid credentials\ncy.url().should(\"include\", \"/dashboard\"); // Verify successful login\ncy.get('div > .menu-logout > li > a > .uil-wrench').click(); // Navigate to Settings\ncy.url().should(\"include\", \"/settings/status\"); // Verify navigation to Settings page\ncy.get('.mileStone > .mileStone-tab > a:nth-child(13) > .nav-item > .nav-link').click(); // Navigate to Affiliations tab\ncy.url().should(\"include\", \"/settings/affiliations\"); // Verify navigation to Affiliations section\ncy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text').click(); // Click on Add Affiliation button\ncy.wait(1500);\ncy.get('form > #modalBody > .form-row > .form-group > .champ-form__cm-input').should('be.visible').type(faker.person.firstName()); // Enter Affiliation Name\ncy.get('form > .modal-box--dialog__container-footer > .border__top-grey > .position-relative > .button').should('be.enabled').click(); // Click Submit Button\n// Uncomment to validate success message if applicable\n// cy.get('.Snackbar_snackbar__text__1Hx2a')\n//   .should('contain', \"Disposition added successfully\"); // Validate success message",
-              "err": {},
-              "uuid": "6f950e17-93f0-46a8-b993-dc958b173f28",
-              "parentUUID": "03706494-9476-4ed3-a1a5-5b9ab3b34814",
+              "code": "cy.login(\"himanshupant.qa@gmail.com\", \"Harry@123\"); // Login with valid credentials\ncy.url().should(\"include\", \"/dashboard\"); // Verify successful login\ncy.get('div > .menu-logout > li > a > .uil-wrench').click(); // Navigate to Settings\ncy.url().should(\"include\", \"/settings/status\"); // Verify navigation to Settings page\ncy.get('.mileStone > .mileStone-tab > a:nth-child(13) > .nav-item > .nav-link').click(); // Navigate to Affiliations tab\ncy.url().should(\"include\", \"/settings/affiliations\"); // Verify navigation to Affiliations section\ncy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text').click(); // Click on Add Affiliation button\ncy.wait(1500);\ncy.reload();\ncy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text').click();\ncy.get('form > #modalBody > .form-row > .form-group > .champ-form__cm-input').should('be.visible').type(faker.person.firstName()); // Enter Affiliation Name\ncy.get('form > .modal-box--dialog__container-footer > .border__top-grey > .position-relative > .button').should('be.enabled').click(); // Click Submit Button\n// Uncomment to validate success message if applicable\n// cy.get('.Snackbar_snackbar__text__1Hx2a')\n//   .should('contain', \"Disposition added successfully\"); // Validate success message",
+              "err": {
+                "message": "CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:\n\n`<span class=\"cstm-dark-text \">Affilia...</span>`\n\nis being covered by another element:\n\n`<h4 data-uf-element=\"title\" class=\"uf-umjfg-title\">Affilia...</h4>`\n\nFix this problem, or use {force: true} to disable error checking.\n\nhttps://on.cypress.io/element-cannot-be-interacted-with",
+                "estack": "CypressError: Timed out retrying after 15050ms: `cy.click()` failed because this element:\n\n`<span class=\"cstm-dark-text \">Affilia...</span>`\n\nis being covered by another element:\n\n`<h4 data-uf-element=\"title\" class=\"uf-umjfg-title\">Affilia...</h4>`\n\nFix this problem, or use {force: true} to disable error checking.\n\nhttps://on.cypress.io/element-cannot-be-interacted-with\n    at ensureIsDescendent (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112011:68)\n    at ensureDescendents (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112062:5)\n    at ensureDescendentsAndScroll (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112068:14)\n    at ensureElIsNotCovered (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112199:5)\n    at runAllChecks (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112398:52)\n    at retryActionability (https://app.mloflo.com/__cypress/runner/cypress_runner.js:112435:16)\n    at tryCatcher (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://app.mloflo.com/__cypress/runner/cypress_runner.js:4285:29)\n    at whenStable (https://app.mloflo.com/__cypress/runner/cypress_runner.js:144478:68)\n    at <unknown> (https://app.mloflo.com/__cypress/runner/cypress_runner.js:144419:14)\n    at tryCatcher (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1671:18)\n    at Promise._fulfill (https://app.mloflo.com/__cypress/runner/cypress_runner.js:1615:18)\n    at <unknown> (https://app.mloflo.com/__cypress/runner/cypress_runner.js:5420:46)",
+                "diff": null
+              },
+              "uuid": "be016bbf-37dd-4eb4-93be-4945a3dd7b90",
+              "parentUUID": "20e81a5d-58dd-4de6-aa1e-167278dad938",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "6f950e17-93f0-46a8-b993-dc958b173f28"
+          "passes": [],
+          "failures": [
+            "be016bbf-37dd-4eb4-93be-4945a3dd7b90"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 17574,
+          "duration": 27361,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

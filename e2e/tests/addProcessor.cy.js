@@ -9,7 +9,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add Loan Officer", () => {
     beforeEach(() => {
-    cy.visit("https://uat.mloflo.com/"); // Navigate to application URL
+    cy.visit("https://app.mloflo.com/"); // Navigate to application URL
     });
 
     it("Adds a loan officer in the team", () => {
@@ -17,7 +17,7 @@ describe("Add Loan Officer", () => {
     cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Login with valid credentials
     cy.url().should("include", "/dashboard"); // Verify successful login
 
-    cy.get(':nth-child(11) > a').click();
+    cy.get('#SIDE_NAV_MY_TEAMS > a > .text__size12').click();
     cy.url().should("include", "/my-team#list");
 
     cy.get('.justify-content-end > .button').click()

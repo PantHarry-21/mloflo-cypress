@@ -10,7 +10,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add Campaign to Existing or New Folder", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/"); // Navigate to application URL
+        cy.visit("https://app.mloflo.com/"); // Navigate to application URL
         cy.login("himanshupant.qa@gmail.com", "Harry@123"); // Login
         cy.url().should("include", "/dashboard"); // Verify login success
     });

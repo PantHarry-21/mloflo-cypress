@@ -3,7 +3,7 @@ import "cypress-real-events/support";
 
 describe("Add Borrower - Optimized", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/");
+        cy.visit("https://app.mloflo.com/");
     });
 
     it("Adds a borrower by clicking + icon in header", () => {

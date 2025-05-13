@@ -9,7 +9,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add Affiliation", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/"); // Navigate to application URL
+        cy.visit("https://app.mloflo.com/"); // Navigate to application URL
     });
 
     it("Add Affiliation", () => {
@@ -29,6 +29,11 @@ describe("Add Affiliation", () => {
         cy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text')
         .click(); // Click on Add Affiliation button
         cy.wait(1500)
+        cy.reload();
+
+        cy.get('.page-loader > .content-box > .d-flex > .d-flex > .cstm-dark-text')
+        .click(); 
+        
         cy.get('form > #modalBody > .form-row > .form-group > .champ-form__cm-input')
           .should('be.visible')
           .type(faker.person.firstName()); // Enter Affiliation Name

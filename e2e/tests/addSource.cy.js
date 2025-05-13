@@ -9,7 +9,7 @@ Cypress.Commands.add("login", (email, password) => {
 
 describe("Add Source in Settings - Optimized", () => {
     beforeEach(() => {
-        cy.visit("https://uat.mloflo.com/"); // Navigate to application URL
+        cy.visit("https://app.mloflo.com/"); // Navigate to application URL
     });
 
     it("Adds a new source in settings", () => {
